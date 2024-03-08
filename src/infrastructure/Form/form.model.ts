@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
+import { FieldValueUpdateType } from './store/redux/models/actions.model';
 
 
 type OptionalStyle = StyleProp<ViewStyle>
@@ -18,7 +19,7 @@ export type FormField = {
 export interface FormContextType extends AdditionalFormSubFields {
 	sharedFieldProps?: TextInputProps,
 	fields: FormField[],
-	onSubmit: () => void
+	onSubmit: (formData:FieldValueUpdateType[] ) => void
 }
 
 export interface FormThemeType {

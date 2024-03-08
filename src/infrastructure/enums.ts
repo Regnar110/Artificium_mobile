@@ -18,4 +18,8 @@ export enum COLORS {
     DAY_BLUE_700 = '#243497',
     DAY_BLUE_800 = '#182364',
     DAY_BLUE_900 = '#0C1132',
+
+    RED_POWER_600 = '#D0302F',
+
+    SUNGLOW_500 = '#FFD147'
 }

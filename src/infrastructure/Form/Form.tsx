@@ -33,7 +33,9 @@ const Form = ({
 	const formSubmit = () => {
 		const storedFieldDatas = store.getState().fields;
 		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldDatas);
-		console.log(fieldsArray);
+		// const match = ValidationPatterns.EMAIL.test(fieldsArray[0].value.toLowerCase());
+		// console.log(match);
+		onSubmit(fieldsArray);
 		return fieldsArray;
 	};
 	

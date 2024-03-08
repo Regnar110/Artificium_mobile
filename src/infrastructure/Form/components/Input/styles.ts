@@ -22,5 +22,11 @@ export const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: 'transparent',
 		fontSize: 14,
+	},
+
+	inputLiveHint: {
+		color: COLORS.SUNGLOW_500,
+		fontSize: 12,
+		paddingVertical: 4
 	}
 });

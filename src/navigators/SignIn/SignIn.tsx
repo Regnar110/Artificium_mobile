@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { COLORS } from '../../infrastructure/enums';
 import Letter from '../../public/svg/letter.svg';
 import Logo from '../../public/svg/logo.svg';
 import Google from '../../public/svg/Google.svg';
-import Apple from '../../public/svg/Apple.svg'
+import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
-
 
 const SignIn = () => {
 	const [ fontsLoaded ] = useFonts({
@@ -30,7 +28,7 @@ const SignIn = () => {
 				</View>
 				<Form 
 					sharedFieldProps={{
-						selectionColor: COLORS.NOBLE_500,
+						selectionColor: '#fff',
 						placeholderTextColor:COLORS.NOBLE_300
 					}}
 
@@ -40,6 +38,8 @@ const SignIn = () => {
 							iconRenderer: () => <Letter width={20} height={20} />,
 							fieldSpecificProps: {
 								placeholder: 'E-mail',
+								inputMode: 'email',
+								maxLength: 320,
 							}
 						},
 						{
@@ -51,6 +51,7 @@ const SignIn = () => {
 							}
 						}
 					]}
+					onSubmit={ ( formData ) => formData}
 					rememberMeCheckbox
 					forgotPasswordRedirect
 				/>
