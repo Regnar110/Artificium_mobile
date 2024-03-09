@@ -26,7 +26,10 @@ const SignIn = () => {
 					</Text>
 					<Text style={styles.headerDescription}>Log in to Artificium to start creating magic</Text>     
 				</View>
-				<Form 
+				<Form
+					onSubmitCallback={(formData) => console.log(formData)}
+					submitButtonText='Log in'
+					fieldLiveHints
 					sharedFieldProps={{
 						selectionColor: '#fff',
 						placeholderTextColor:COLORS.NOBLE_300
@@ -36,6 +39,7 @@ const SignIn = () => {
 						{
 							id:'e-mail',
 							iconRenderer: () => <Letter width={20} height={20} />,
+							patternError: 'Invalid e-mail address',
 							fieldSpecificProps: {
 								placeholder: 'E-mail',
 								inputMode: 'email',
@@ -45,13 +49,13 @@ const SignIn = () => {
 						{
 							id:'password',
 							iconRenderer: () => <Letter width={20} height={20} />,
+							patternError: 'Invalid password. Min. 8 characters, one upper case letter and special mark required',
 							fieldSpecificProps: {
 								secureTextEntry: true,
 								placeholder:'Password',
 							}
 						}
 					]}
-					onSubmit={ ( formData ) => formData}
 					rememberMeCheckbox
 					forgotPasswordRedirect
 				/>
@@ -83,8 +87,9 @@ export default SignIn;
 const styles = StyleSheet.create({
 
 	container: {
-		position: 'relative',
 		flex: 1,
+		backgroundColor: 'red',
+		position: 'relative',
 		alignItems: 'center',
 		justifyContent: 'center',
 	},
@@ -94,6 +99,7 @@ const styles = StyleSheet.create({
 	},
 	
 	innerContainer: {
+		flex: 1,
 		alignItems: 'flex-start',
 		justifyContent: 'center',
 		width: '90%',

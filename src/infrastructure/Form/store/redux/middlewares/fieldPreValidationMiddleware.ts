@@ -1,6 +1,7 @@
-import { AnyListenerPredicate, createListenerMiddleware } from '@reduxjs/toolkit';
-import { pushHintWarningToStore, removeHintErrorFromStore } from '../reducers/fieldsHintWarningsSlice';
+import { PayloadAction, createListenerMiddleware } from '@reduxjs/toolkit';
+import { switchHintVisibility } from '../reducers/fieldsHintWarningsSlice';
 import { ValidationPatterns } from '../../../validationPatterns';
+import { RootState } from '../store';
 
 
 /**
@@ -14,31 +15,37 @@ import { ValidationPatterns } from '../../../validationPatterns';
  * ? Based on this slice user sees hint warrnings under certain input field.
 */
 
-export const fieldPreValidationMiddleware = createListenerMiddleware();
+type MiddlewarePayloadActionType = PayloadAction<{id: keyof typeof ValidationPatterns, value:string}, string>
 
+export const fieldPreValidationMiddleware = createListenerMiddleware();
 fieldPreValidationMiddleware.startListening({
-	predicate: (action: {type:string, payload: {id: keyof typeof ValidationPatterns, value:string}}) => {
+	predicate: (action, currentState) => {
+		const { fieldHintWarnings } = currentState as RootState;
+		const { type, payload } = action as MiddlewarePayloadActionType;
 		return (
-			action.type === 'fields/updateFieldValue'
+			fieldHintWarnings.enabled 
 			&&
-			Object.keys(ValidationPatterns).includes(action.payload.id)
+			type === 'fields/updateFieldValue'
 			&&
-			action.payload.id !== 'e-mail'
+			Object.keys(ValidationPatterns).includes(payload.id)
 		);
 	},
-	effect: (action: {type:string, payload: {id: keyof typeof ValidationPatterns, value:string}}, listenerAPI)=> {
-		const validationRegExp = ValidationPatterns[action.payload.id];
-		if (!action.payload.value) {
-			listenerAPI.dispatch(removeHintErrorFromStore(action.payload.id));
+	effect: (action, listenerAPI)=> {
+		const { payload } = action as MiddlewarePayloadActionType;
+		const validationRegExp = ValidationPatterns[payload.id];
+		
+		if (!payload.value) {
+			listenerAPI.dispatch(switchHintVisibility(payload.id));
 			return;
 		}
 
 		if (validationRegExp) {
-			if (!validationRegExp.test(action.payload.value)) {
-				listenerAPI.dispatch(pushHintWarningToStore({field: action.payload.id, message: 'Password should be longer than 8 characters and contain one big letter and special mark'}));
-			} else {
-				listenerAPI.dispatch(removeHintErrorFromStore(action.payload.id));
-			}			
+			listenerAPI.dispatch(switchHintVisibility(payload.id));
+			// if (!validationRegExp.test(payload.value)) {
+			// 	listenerAPI.dispatch(switchHintVisibility(payload.id));
+			// } else {
+			// 	listenerAPI.dispatch(removeHintErrorFromStore(payload.id));
+			// }			
 		}
 	}
 });

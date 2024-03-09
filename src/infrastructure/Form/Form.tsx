@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import InputsContainer from './components/inputsContainer/InputsContainer';
 import { FormContextProvider, FormThemeProvider } from './store/context/FormContexts';
 import { FormType } from './form.model';
@@ -7,13 +6,17 @@ import SubFormContainer from './components/subFormContainer/SubFormContainer';
 import CustomButton from '../CustomButton/CustomButton';
 import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
-import { FieldValueUpdateType } from './store/redux/models/actions.model';
+import FormContainer from './components/FormContainer/FormContainer';
+import formRepository from './store/repository/formRepo';
 
-const Form = ({ 
+const Form = ({
 	fields,
-	onSubmit,
+	hints,
+	fieldLiveHints,
 	optionalStyles,
 	sharedFieldProps,
+	onSubmitCallback,
+	submitButtonText,
 	forgotPasswordRedirect = false, 
 	rememberMeCheckbox = false,
 }:FormType) => {
@@ -22,7 +25,10 @@ const Form = ({
 		forgotPasswordRedirect,
 		rememberMeCheckbox,
 		sharedFieldProps,
-		onSubmit,
+		fieldLiveHints,
+		onSubmitCallback,
+		submitButtonText,
+		hints,
 		fields,
 	};
 	
@@ -30,24 +36,17 @@ const Form = ({
 		optionalStyles
 	};
 
-	const formSubmit = () => {
-		const storedFieldDatas = store.getState().fields;
-		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldDatas);
-		// const match = ValidationPatterns.EMAIL.test(fieldsArray[0].value.toLowerCase());
-		// console.log(match);
-		onSubmit(fieldsArray);
-		return fieldsArray;
-	};
+	const submit = () => formRepository.submitValidation(onSubmitCallback);
 	
 	return (
 		<FormContextProvider value={formContextValues}>
 			<FormThemeProvider value={formThemeValues}>
 				<Provider store={store}>
-					<View style={styles.form}>
+					<FormContainer>
 						<InputsContainer />
 						<SubFormContainer />
-						<CustomButton callback={formSubmit}/>
-					</View>								
+						<CustomButton callback={submit}/>	
+					</FormContainer>
 				</Provider>
 			</FormThemeProvider>
 		</FormContextProvider>
@@ -56,10 +55,3 @@ const Form = ({
 };
 
 export default Form;
-
-const styles = StyleSheet.create({
-	form: {
-		width: '100%',
-		gap: 35,
-	},
-});

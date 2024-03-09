@@ -1,25 +1,42 @@
 import { ReactNode } from 'react';
 import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { FieldValueUpdateType } from './store/redux/models/actions.model';
+import { ValidationPatterns } from './validationPatterns';
 
 
 type OptionalStyle = StyleProp<ViewStyle>
+
+export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean ) => void
 
 interface AdditionalFormSubFields {
 	forgotPasswordRedirect?: boolean,
 	rememberMeCheckbox?: boolean
 }
 
-export type FormField = {
-	id: string,
-	fieldSpecificProps?: TextInputProps,
-	iconRenderer?: () => ReactNode,
+export interface ValidationResult {
+	field: keyof typeof ValidationPatterns,
+	valid: boolean
+}
+type FieldLiveHints = {
+    fieldLiveHints?: boolean;
+    hints?: Array<{
+        id: keyof typeof ValidationPatterns;
+        message: string;
+    }>
 }
 
-export interface FormContextType extends AdditionalFormSubFields {
+export type FormField = {
+	id: keyof typeof ValidationPatterns,
+	fieldSpecificProps?: TextInputProps,
+	iconRenderer?: () => ReactNode,
+	patternError: string
+}
+
+export interface FormContextType extends AdditionalFormSubFields, FieldLiveHints {
 	sharedFieldProps?: TextInputProps,
 	fields: FormField[],
-	onSubmit: (formData:FieldValueUpdateType[] ) => void
+	submitButtonText: string
+	onSubmitCallback?: OnSubmitCallback
 }
 
 export interface FormThemeType {
@@ -38,4 +55,4 @@ export interface FormThemeType {
 	}
 }
 
-export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields
+export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields & FieldLiveHints

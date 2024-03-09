@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import fieldsSlice from './reducers/fieldsSlice';
 import { fieldPreValidationMiddleware } from './middlewares/fieldPreValidationMiddleware';
 import fieldsHintWarningsSlice from './reducers/fieldsHintWarningsSlice';
+import fieldsSubmitPatternsErrors from './reducers/fieldsSubmitPatternsErrors';
 
 
 export const store = configureStore({
 	reducer: {
 		fields: fieldsSlice,
-		fieldHintWarnings: fieldsHintWarningsSlice
+		fieldHintWarnings: fieldsHintWarningsSlice,
+		fieldsSubmitPatternsErrors: fieldsSubmitPatternsErrors
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware().prepend(fieldPreValidationMiddleware.middleware);

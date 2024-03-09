@@ -28,5 +28,11 @@ export const styles = StyleSheet.create({
 		color: COLORS.SUNGLOW_500,
 		fontSize: 12,
 		paddingVertical: 4
+	},
+	
+	inputFieldSubmitError: {
+		color: COLORS.RED_POWER_600,
+		fontSize: 12,
+		paddingVertical: 4
 	}
 });
