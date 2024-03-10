@@ -7,6 +7,7 @@ import Logo from '../../public/svg/logo.svg';
 import Google from '../../public/svg/Google.svg';
 import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
+import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
 
 const SignIn = () => {
 	const [ fontsLoaded ] = useFonts({
@@ -14,70 +15,73 @@ const SignIn = () => {
 	});
 
 	return fontsLoaded && (
-		<View style={styles.container}>
-			<Logo width={200} height={20} />
-				
-			<View style={styles.innerContainer}>
-				<View>
-					<Text style={{ color: '#fff', fontFamily: 'font-bold', fontSize: 24}}>
-						{'Let\'s get'}
-						<Text style={styles.colorizedPhrase}> creative!</Text>
-					</Text>
-					<Text style={styles.headerDescription}>Log in to Artificium to start creating magic</Text>     
-				</View>
-				<Form
-					onSubmitCallback={(formData) => console.log(formData)}
-					submitButtonText='Log in'
-					fieldLiveHints
-					sharedFieldProps={{
-						selectionColor: '#fff',
-						placeholderTextColor:COLORS.NOBLE_300
-					}}
+		<TemplateContainer>
+			<View style={styles.container}>
+				<Logo width={200} height={20} />
+					
+				<View style={styles.innerContainer}>
+					<View>
+						<Text style={{ color: '#fff', fontFamily: 'font-bold', fontSize: 24}}>
+							{'Let\'s get'}
+							<Text style={styles.colorizedPhrase}> creative!</Text>
+						</Text>
+						<Text style={styles.headerDescription}>Log in to Artificium to start creating magic</Text>     
+					</View>
+					<Form
+						onSubmitCallback={(formData) => console.log(formData)}
+						submitButtonText='Log in'
+						fieldLiveHints
+						sharedFieldProps={{
+							selectionColor: '#fff',
+							placeholderTextColor:COLORS.NOBLE_300
+						}}
 
-					fields={[
-						{
-							id:'e-mail',
-							iconRenderer: () => <Letter width={20} height={20} />,
-							patternError: 'Invalid e-mail address',
-							fieldSpecificProps: {
-								placeholder: 'E-mail',
-								inputMode: 'email',
-								maxLength: 320,
+						fields={[
+							{
+								id:'e-mail',
+								iconRenderer: () => <Letter width={20} height={20} />,
+								patternError: 'Invalid e-mail address',
+								fieldSpecificProps: {
+									placeholder: 'E-mail',
+									inputMode: 'email',
+									maxLength: 320,
+								}
+							},
+							{
+								id:'password',
+								iconRenderer: () => <Letter width={20} height={20} />,
+								patternError: 'Invalid password',
+								fieldSpecificProps: {
+									secureTextEntry: true,
+									placeholder:'Password',
+								}
 							}
-						},
-						{
-							id:'password',
-							iconRenderer: () => <Letter width={20} height={20} />,
-							patternError: 'Invalid password',
-							fieldSpecificProps: {
-								secureTextEntry: true,
-								placeholder:'Password',
-							}
-						}
-					]}
-					rememberMeCheckbox
-					forgotPasswordRedirect
-				/>
-				<View style={styles.lineBreak}>
-					<View style={styles.line} />
-					<Text style={styles.breakLineText}>or continue with</Text>
-				</View>
-				<View style={styles.signInProviders}>
-					<View style={styles.customButtonContainer2}>
-						<Pressable style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>
-							<Google width={25} height={25} />
-							<Text style={styles.customButtonText2}>Google Account</Text>
-						</Pressable>
+						]}
+						rememberMeCheckbox
+						forgotPasswordRedirect
+					/>
+					<View style={styles.lineBreak}>
+						<View style={styles.line} />
+						<Text style={styles.breakLineText}>or continue with</Text>
 					</View>
-					<View style={styles.customButtonContainer2}>
-						<Pressable style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>
-							<Apple width={25} height={25} />
-							<Text style={styles.customButtonText2}>Apple Account</Text>
-						</Pressable>
+					<View style={styles.signInProviders}>
+						<View style={styles.customButtonContainer2}>
+							<Pressable style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>
+								<Google width={25} height={25} />
+								<Text style={styles.customButtonText2}>Google Account</Text>
+							</Pressable>
+						</View>
+						<View style={styles.customButtonContainer2}>
+							<Pressable style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>
+								<Apple width={25} height={25} />
+								<Text style={styles.customButtonText2}>Apple Account</Text>
+							</Pressable>
+						</View>
 					</View>
-				</View>
-			</View>				
-		</View>
+				</View>				
+			</View>			
+		</TemplateContainer>
+
 	);
 };
 
