@@ -2,16 +2,17 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { styles } from './styles';
 import { FormContext } from '../../store/context/FormContexts';
-import CustomCheckbox from '../../../CustomCheckbox/CustomCheckbox';
 import TextLink from '../../../TextLink/TextLink';
+import TermsCheckbox from '../TermsCheckbox/TermsCheckbox';
+import RememberMeCheckbox from '../RememberMeCheckbox/RememberMeCheckbox';
 
 const SubFormContainer = () => {
 
-	const { rememberMeCheckbox, forgotPasswordRedirect } = useContext(FormContext);
-	
+	const { rememberMeCheckbox, forgotPasswordRedirect, termsAgreement} = useContext(FormContext);
 	return (
 		<View style={styles.subFormWrapper}>
-			{ rememberMeCheckbox && <CustomCheckbox /> }
+			{ rememberMeCheckbox && <RememberMeCheckbox/> }
+			{ termsAgreement && <TermsCheckbox />}
 			{ forgotPasswordRedirect && <TextLink text='Forgot Password?'/> }
 		</View>
 	);

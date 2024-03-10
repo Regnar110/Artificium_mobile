@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Logo from '../../public/svg/logo.svg';
 import Form from '../../infrastructure/Form/Form';
 import Person from '../../public/svg/person.svg';
@@ -8,15 +8,19 @@ import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 const Register = () => {
 	return (
-		<>
-			<View style={styles.logo}>
-				<Logo width={200} height={10} />
-			</View>
+		<View style={styles.container}>
+			<Logo width={200} height={10} />
 			<View style={styles.innerContainer}>
+				<Text style={styles.header}>Connect with your team and bring your creative ideas to life.</Text>
 				<Form
+					termsAgreement
 					fieldLiveHints={true}
 					hints={
 						[
+							{
+								id: 'e-mail',
+								message: 'Remember to enter the correct email address. This will make it easier for us to contact you'
+							},
 							{
 								id: 'password',
 								message: 'Password should be longer than 8 characters and contain one big letter and special mark'
@@ -82,11 +86,9 @@ const Register = () => {
 							}
 						}
 					]}
-					rememberMeCheckbox
-					forgotPasswordRedirect
 				/>	
 			</View>					
-		</>
+		</View>
 
 	);
 };
@@ -100,10 +102,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-
-	logo: {
-		marginVertical: 50
+		gap: 60,
 	},
 	
 	innerContainer: {
@@ -112,4 +111,9 @@ const styles = StyleSheet.create({
 		width: '90%',
 		gap:50
 	},
+
+	header: {
+		color: COLORS.NOBLE_100,
+		fontSize: 24
+	}
 });

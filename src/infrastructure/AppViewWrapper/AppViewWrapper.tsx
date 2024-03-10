@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 interface AppViewWrapperType {
 	children: ReactNode
@@ -7,9 +7,9 @@ interface AppViewWrapperType {
 
 const AppViewWrapper = ({ children }:AppViewWrapperType) => {
 	return (
-		<View style={{flex: 1, paddingHorizontal: 12, paddingVertical: 32}}>
+		<ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
 			{ children }
-		</View>
+		</ScrollView>
 	);
 };
 

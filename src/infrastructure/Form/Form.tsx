@@ -19,6 +19,7 @@ const Form = ({
 	submitButtonText,
 	forgotPasswordRedirect = false, 
 	rememberMeCheckbox = false,
+	termsAgreement = false
 }:FormType) => {
 
 	const formContextValues = {
@@ -26,6 +27,7 @@ const Form = ({
 		rememberMeCheckbox,
 		sharedFieldProps,
 		fieldLiveHints,
+		termsAgreement,
 		onSubmitCallback,
 		submitButtonText,
 		hints,

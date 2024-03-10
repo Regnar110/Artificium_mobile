@@ -8,9 +8,10 @@ type OptionalStyle = StyleProp<ViewStyle>
 
 export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean ) => void
 
-interface AdditionalFormSubFields {
-	forgotPasswordRedirect?: boolean,
-	rememberMeCheckbox?: boolean
+interface AdditionalFormSubFields<T = boolean> {
+	forgotPasswordRedirect?: T,
+	rememberMeCheckbox?: T,
+	termsAgreement?: T,
 }
 
 export interface ValidationResult {

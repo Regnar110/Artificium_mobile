@@ -11,7 +11,6 @@ const CustomCheckbox = () => {
 			innerIconStyle={ isCheckboxChecked ? styles.checkBoxChecked : styles.checkboxUnchecked}
 			iconStyle={styles.checkboxIconStyle}
 			size={20}
-			text='Remember me'
 			textStyle={{fontSize: 14}}
 			fillColor={COLORS.NOBLE_400}
 			isChecked={isCheckboxChecked}

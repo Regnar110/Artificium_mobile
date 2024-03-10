@@ -15,9 +15,8 @@ const SignIn = () => {
 
 	return fontsLoaded && (
 		<View style={styles.container}>
-			<View style={styles.logo}>
-				<Logo width={200} height={10} />
-			</View>
+			<Logo width={200} height={20} />
+				
 			<View style={styles.innerContainer}>
 				<View>
 					<Text style={{ color: '#fff', fontFamily: 'font-bold', fontSize: 24}}>
@@ -49,7 +48,7 @@ const SignIn = () => {
 						{
 							id:'password',
 							iconRenderer: () => <Letter width={20} height={20} />,
-							patternError: 'Invalid password. Min. 8 characters, one upper case letter and special mark required',
+							patternError: 'Invalid password',
 							fieldSpecificProps: {
 								secureTextEntry: true,
 								placeholder:'Password',
@@ -77,7 +76,7 @@ const SignIn = () => {
 						</Pressable>
 					</View>
 				</View>
-			</View>
+			</View>				
 		</View>
 	);
 };
@@ -88,20 +87,15 @@ const styles = StyleSheet.create({
 
 	container: {
 		flex: 1,
-		backgroundColor: 'red',
-		position: 'relative',
+		width: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
+		gap: 60,
 	},
 
-	logo: {
-		bottom: 50,
-	},
 	
 	innerContainer: {
-		flex: 1,
 		alignItems: 'flex-start',
-		justifyContent: 'center',
 		width: '90%',
 		gap:50
 	},
