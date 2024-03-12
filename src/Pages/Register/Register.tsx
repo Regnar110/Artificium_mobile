@@ -7,7 +7,17 @@ import Lock from '../../public/svg/lock.svg';
 import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
+import { useNavigation } from '@react-navigation/native';
+import AddPerson from '../../public/svg/addperson.svg';
+
 const Register = () => {
+	const navigation = useNavigation();
+
+	navigation.setOptions({
+		title: 'Sign In',
+		tabBarIcon: () => <AddPerson width={25} height={25} />,
+	});
+
 	return (
 		<TemplateContainer>
 			<View style={styles.container}>

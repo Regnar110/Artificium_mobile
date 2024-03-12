@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { COLORS } from '../../infrastructure/enums';
@@ -8,11 +8,22 @@ import Google from '../../public/svg/Google.svg';
 import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
+import { useNavigation } from '@react-navigation/native';
+import Unlock from '../../public/svg/unlock.svg';
 
 const SignIn = () => {
+	const navigation = useNavigation();
+
 	const [ fontsLoaded ] = useFonts({
 		'font-bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
 	});
+
+	useEffect(() => {
+		navigation.setOptions({
+			title: 'Sign In',
+			tabBarIcon: () => <Unlock width={25} height={25} />,
+		});
+	}, []);
 
 	return fontsLoaded && (
 		<TemplateContainer>

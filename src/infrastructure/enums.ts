@@ -21,5 +21,9 @@ export enum COLORS {
 
     RED_POWER_600 = '#D0302F',
 
-    SUNGLOW_500 = '#FFD147'
+    SUNGLOW_400 = '#FFDC75',
+    SUNGLOW_500 = '#FFD147',
+    SUNGLOW_600 = '#E2B42B',
+
+    HEISENBERG_900 = '#193037'
 }
