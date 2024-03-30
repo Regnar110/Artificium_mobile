@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Register from '../../Pages/Register/Register';
 import SignIn from '../../Pages/SignIn/SignIn';
 import { COLORS } from '../../infrastructure/enums';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/lib/typescript/react-navigation';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 

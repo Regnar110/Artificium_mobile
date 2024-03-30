@@ -12,8 +12,12 @@ module.exports = {
 	],
 	'parser': '@typescript-eslint/parser',
 	'parserOptions': {
-		'ecmaVersion': 'latest',
-		'sourceType': 'module'
+		'ecmaFeatures': {
+			'jsx': true,
+		},
+		'ecmaVersion': 2018,
+		'sourceType': 'module',
+		'project': './tsconfig.json',
 	},
 	'plugins': [
 		'react',
