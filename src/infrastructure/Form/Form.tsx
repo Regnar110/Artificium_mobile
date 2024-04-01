@@ -9,6 +9,10 @@ import { store } from './store/redux/store';
 import FormContainer from './components/FormContainer/FormContainer';
 import formRepository from './store/repository/formRepo';
 
+/** 
+ * TODO - panel zgód zamiast terms agreement itd. Panel miałby być scalony z formami.
+*/
+
 const Form = ({
 	fields,
 	hints,

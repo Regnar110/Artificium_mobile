@@ -24,6 +24,19 @@ const FormContainer = ({ children }:FormContainerType) => {
 				value: ''
 			};
 		}
+
+		/**
+		 * TODO - m abyc zastapione panelem zgód, tkóry będzie sam weryfikował czy użytkownik wyraził zgody na np termsy, zapamiętanie jego danych
+		 * TODO i ewentualnie inne jego zgody.
+		 */
+		// if (termsAgreement) {
+		// 	const termsObject = {
+		// 		id: 'terms',
+		// 		checked: false
+		// 	};
+
+		// 	preparedFields['terms'] = termsObject;
+		// }
 		return preparedFields;
 	};
 	

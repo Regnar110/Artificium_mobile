@@ -17,7 +17,6 @@ const fieldsHintWarningsSlice = createSlice({
 
 		switchHintVisibility: (state, action) => {
 			const { id } = action.payload;
-			console.log(state);
 			if(state.fieldsHints.length) {
 				const modifiedHints = state.fieldsHints.map(hint => {
 					if (hint.id === id) {

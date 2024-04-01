@@ -10,6 +10,7 @@ export const ValidationPatterns = {
 	'password': new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'),
 	'repeatpassword': new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'),
 	'firstname': new RegExp(/^[^\W_]{2,}$/),
-	'lastname': new RegExp(/^[^\W_]{2,}$/),
-	
+	'lastname': new RegExp(/^[^\W_]{2,}$/),	
 };
+
+export const NonValidableFieldsIds = ['terms'];

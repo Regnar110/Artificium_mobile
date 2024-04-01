@@ -5,7 +5,8 @@ import { COLORS } from '../../infrastructure/enums';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
-
+import AddPerson from '../../public/svg/addperson.svg';
+import Unlock from '../../public/svg/unlock.svg';
 
 const HubPage = () => {
 	const Tab = createMaterialBottomTabNavigator();
@@ -26,8 +27,17 @@ const HubPage = () => {
 			activeColor={COLORS.NOBLE_400} inactiveColor={COLORS.NOBLE_300}
 			activeIndicatorStyle={styles.activeIndicatorStyle}
 		>
-			<Tab.Screen name='signin' component={SignIn} />
-			<Tab.Screen name='register' component={Register} />
+			<Tab.Screen name='signin' component={SignIn} options={{
+				title: 'Sign In',
+				tabBarIcon: () => <Unlock width={25} height={25} />,
+			}}/>
+			<Tab.Screen name='register' component={Register} options={
+				{ 
+					title: 'Register',
+					tabBarIcon: () => <AddPerson width={25} height={25} />,
+				}
+			}
+			/>
 		</Tab.Navigator>			
 	);
 };
