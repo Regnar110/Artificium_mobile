@@ -15,12 +15,7 @@ export const fieldsSlice = createSlice({
 		},
 
 		updateFieldValue: (state: {[key: string]: FieldValueUpdateType}, action:PayloadAction<FieldValueUpdateType>) => {
-			/**
-			 * TODO usunąć checked - ma być przeniesiony do panelu zgód.
-			 */
-			if ('checked' in action.payload) {
-				state[action.payload.id].checked = action.payload.checked;
-			} else {
+			{
 				state[action.payload.id].value = action.payload.value;
 			}
 		}

@@ -7,8 +7,23 @@ import Lock from '../../public/svg/lock.svg';
 import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
+import Agreements from '../../infrastructure/Agreements/Agreements';
 
 const Register = () => {
+
+	const dummyRequest = async (formData) => await fetch('http://localhost:3000/register', {
+		method: 'POST', // *GET, POST, PUT, DELETE, etc.
+		mode: 'cors', // no-cors, *cors, same-origin
+		credentials: 'same-origin', // include, *same-origin, omit
+		headers: {
+			'Content-Type': 'application/json',
+			// 'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		redirect: 'follow', // manual, *follow, error
+		referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+		body: JSON.stringify(formData), // body data type must match "Content-Type" header
+	});
+
 	return (
 		<TemplateContainer>
 			<View style={styles.container}>
@@ -16,7 +31,7 @@ const Register = () => {
 				<View style={styles.innerContainer}>
 					<Text style={styles.header}>Connect with your team and bring your creative ideas to life.</Text>
 					<Form
-						termsAgreement
+						onSubmitCallback={dummyRequest}
 						fieldLiveHints={true}
 						hints={
 							[
@@ -89,6 +104,12 @@ const Register = () => {
 							}
 						]}
 					/>	
+					<Agreements agreementFields={[{
+						defaultValue: false,
+						required: true,
+						textNode:() => <Text>{'XXX'}</Text>
+
+					}]}/>
 				</View>					
 			</View>			
 		</TemplateContainer>

@@ -18,7 +18,6 @@ const SignIn = () => {
 		<TemplateContainer>
 			<View style={styles.container}>
 				<Logo width={200} height={20} />
-					
 				<View style={styles.innerContainer}>
 					<View>
 						<Text style={{ color: '#fff', fontFamily: 'font-bold', fontSize: 24}}>
