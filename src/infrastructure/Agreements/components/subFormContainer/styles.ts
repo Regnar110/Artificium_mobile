@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-	subFormWrapper: {
+	fieldWrapper: {
 		flexDirection: 'row',
-		justifyContent: 'space-between'
+		marginVertical: 8
 	},
 });

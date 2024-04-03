@@ -2,7 +2,6 @@ import React from 'react';
 import InputsContainer from './components/inputsContainer/InputsContainer';
 import { FormContextProvider, FormThemeProvider } from './store/context/FormContexts';
 import { FormType } from './form.model';
-import SubFormContainer from './components/subFormContainer/SubFormContainer';
 import CustomButton from '../CustomButton/CustomButton';
 import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
@@ -45,7 +44,6 @@ const Form = ({
 				<Provider store={store}>
 					<FormContainer>
 						<InputsContainer />
-						<SubFormContainer />
 						<CustomButton callback={submit}/>	
 					</FormContainer>
 				</Provider>

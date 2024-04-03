@@ -104,12 +104,18 @@ const Register = () => {
 							}
 						]}
 					/>	
-					<Agreements agreementFields={[{
-						defaultValue: false,
-						required: true,
-						textNode:() => <Text>{'XXX'}</Text>
-
-					}]}/>
+					<Agreements agreementFields={[
+						{
+							id: 'terms',
+							required: true,
+							textNode: () => <Text style={{ color: '#fff'}}>{'I agree with '}<Text style={{color: COLORS.NOBLE_400, fontWeight: 700}}>{'Terms and conditions'}</Text></Text>
+						},
+						{
+							id: 'cookies',
+							required: true,
+							textNode: () => <Text style={{color:'#fff'}}>{'I agree to saving cookies'}</Text>
+						}
+					]} />
 				</View>					
 			</View>			
 		</TemplateContainer>

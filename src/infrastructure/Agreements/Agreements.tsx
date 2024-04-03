@@ -1,4 +1,6 @@
 import React from 'react';
+import { agreementsStore } from './store/redux/store';
+import { Provider } from 'react-redux';
 import { AgreementsProvider } from './store/context/AgreementsContext';
 import { AgreementsComponentType } from './agreements.model';
 import AgreementsContainer from './components/AgreementsContainer/AgreementsContainer';
@@ -6,7 +8,9 @@ import AgreementsContainer from './components/AgreementsContainer/AgreementsCont
 const Agreements = ({ agreementFields }: AgreementsComponentType) => {
 	return (
 		<AgreementsProvider value={agreementFields}>
-\			<AgreementsContainer />		
+			<Provider store={agreementsStore}>
+				<AgreementsContainer />		
+			</Provider>
 		</AgreementsProvider>
 
 	);

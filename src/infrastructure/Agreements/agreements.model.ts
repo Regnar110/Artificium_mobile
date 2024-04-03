@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
 
 export interface Agreement {
+	id: string,
 	required: boolean,
 	textNode: () => ReactNode,
-	defaultValue?: boolean,
 	agreementChangeHandler?: () => void
 }
 
