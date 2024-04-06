@@ -1,16 +1,21 @@
 import React from 'react';
 import { agreementsStore } from './store/redux/store';
 import { Provider } from 'react-redux';
-import { AgreementsProvider } from './store/context/AgreementsContext';
+import { AgreementsPropsProvider, AgreementsProvider } from './store/context/AgreementsContext';
 import { AgreementsComponentType } from './agreements.model';
 import AgreementsContainer from './components/AgreementsContainer/AgreementsContainer';
 
-const Agreements = ({ agreementFields }: AgreementsComponentType) => {
+const Agreements = ({ agreementFields, selectAllField }: AgreementsComponentType) => {
 	return (
 		<AgreementsProvider value={agreementFields}>
-			<Provider store={agreementsStore}>
-				<AgreementsContainer />		
-			</Provider>
+			<AgreementsPropsProvider value={{
+				selectAllField
+			}}>
+				<Provider store={agreementsStore}>
+					<AgreementsContainer />		
+				</Provider>				
+			</AgreementsPropsProvider>
+
 		</AgreementsProvider>
 
 	);
