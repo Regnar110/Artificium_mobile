@@ -13,7 +13,6 @@ const AgreementField = ({ id, required, textNode, agreementChangeHandler }:Agree
 	const dispatch = useDispatch();
 	const fieldState = useSelector((state:RootState) => getAgreementFieldState(state, id));
 	const fieldsSt = useSelector((state:RootState) => getAgreementFields(state));
-	console.log(fieldsSt)
 
 	const changeAgreementState = () => {
 		if (id === 'selectAll') {

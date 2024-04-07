@@ -15,7 +15,7 @@ const AgreementsContainer = () => {
 			const { id, required } = agreement;
 			return { id, required, checked: false };
 		});
-		if(selectAllField) {
+		if (selectAllField) {
 			agreementsState.push({
 				id: 'selectAll',
 				required: false,
