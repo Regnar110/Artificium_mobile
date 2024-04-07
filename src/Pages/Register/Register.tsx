@@ -7,7 +7,6 @@ import Lock from '../../public/svg/lock.svg';
 import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
-import Agreements from '../../infrastructure/Agreements/Agreements';
 
 const Register = () => {
 
@@ -31,6 +30,24 @@ const Register = () => {
 				<View style={styles.innerContainer}>
 					<Text style={styles.header}>Connect with your team and bring your creative ideas to life.</Text>
 					<Form
+						agreements={{
+							selectAllField: {
+								textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'Select all'}</Text>,
+							},
+
+							agreementFields:[
+								{
+									id: 'terms',
+									required: true,
+									textNode: () => <Text style={{ color: COLORS.NOBLE_100}}>{'I agree with ' }<Text style={{color: COLORS.NOBLE_400, fontWeight: '700'}}>{'Terms and conditions'}</Text></Text>,
+								},
+								{
+									id: 'cookies',
+									required: true,
+									textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'I agree to saving cookies'}</Text>
+								}
+							]
+						}}
 						onSubmitCallback={dummyRequest}
 						fieldLiveHints={true}
 						hints={
@@ -103,23 +120,7 @@ const Register = () => {
 								}
 							}
 						]}
-					/>	
-					<Agreements
-						selectAllField={{
-							textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'Select all'}</Text>,
-						}}
-						agreementFields={[
-							{
-								id: 'terms',
-								required: true,
-								textNode: () => <Text style={{ color: COLORS.NOBLE_100}}>{'I agree with ' }<Text style={{color: COLORS.NOBLE_400, fontWeight: '700'}}>{'Terms and conditions'}</Text></Text>,
-							},
-							{
-								id: 'cookies',
-								required: true,
-								textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'I agree to saving cookies'}</Text>
-							}
-						]} />
+					/>
 				</View>					
 			</View>			
 		</TemplateContainer>

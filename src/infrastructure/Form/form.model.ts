@@ -2,11 +2,13 @@ import { ReactNode } from 'react';
 import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { FieldValueUpdateType } from './store/redux/models/actions.model';
 import { ValidationPatterns } from './validationPatterns';
+import { AgreementsComponentType } from '../Agreements/agreements.model';
+import { AgreementValidation } from '../Agreements/store/redux/agreementsStore.model';
 
 
 type OptionalStyle = StyleProp<ViewStyle>
 
-export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean ) => void
+export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementValidation, ) => void
 
 interface AdditionalFormSubFields<T = boolean> {
 	forgotPasswordRedirect?: T,
@@ -56,4 +58,8 @@ export interface FormThemeType {
 	}
 }
 
-export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields & FieldLiveHints
+export interface FormAgreements {
+	agreements: AgreementsComponentType
+}
+
+export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields & FieldLiveHints & FormAgreements

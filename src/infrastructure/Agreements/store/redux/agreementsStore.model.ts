@@ -4,4 +4,12 @@ export interface AgreementFieldState {
 	checked: boolean
 }
 
+export type AgreementValidation = agreementValidationResult[];
+
 export type AgreementFieldsArray = AgreementFieldState[];
+
+
+interface agreementValidationResult {
+	agreementField: string,
+	valid: boolean
+}

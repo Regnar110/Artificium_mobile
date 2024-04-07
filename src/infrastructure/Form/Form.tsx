@@ -7,11 +7,15 @@ import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
 import FormContainer from './components/FormContainer/FormContainer';
 import formRepository from './store/repository/formRepo';
+import { Text } from 'react-native';
+import Agreements from '../Agreements/Agreements';
+import { COLORS } from '../enums';
 
 
 const Form = ({
 	fields,
 	hints,
+	agreements,
 	fieldLiveHints,
 	optionalStyles,
 	sharedFieldProps,
@@ -44,6 +48,12 @@ const Form = ({
 				<Provider store={store}>
 					<FormContainer>
 						<InputsContainer />
+						{
+							agreements && <Agreements
+								selectAllField={agreements.selectAllField}
+								agreementFields={agreements.agreementFields}
+							/>
+						}
 						<CustomButton callback={submit}/>	
 					</FormContainer>
 				</Provider>

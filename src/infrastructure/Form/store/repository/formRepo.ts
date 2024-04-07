@@ -3,13 +3,38 @@ import { ValidationPatterns } from '../../validationPatterns';
 import { FieldValueUpdateType } from '../redux/models/actions.model';
 import { pushValidationErrorsToStore, resetValidationErrors } from '../redux/reducers/fieldsSubmitPatternsErrors';
 import { store } from '../redux/store';
+import { agreementsStore } from '../../../Agreements/store/redux/store';
+import { AgreementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 
 class formRepository {
 
+	/**
+	* @member submitValidation
+	* 
+	* 	Validate form input fields base on validation patterns.
+	* 	Fields current state is reached from redux store by getState() method.
+	* 
+	* 	After validation invalid fields are pushed to store with dispatch method.
+	* 	Based on that errors are displayed.
+	* 
+	* 	If there is no errors, then those are reseted by resetValidationErrors method.
+	* 
+	*  	At the end callback is called if provided.
+	* @param callback 
+	* 	recieves array with fields array,
+	* 	validation results array < type of below return >,
+	* 	and also invalidFields length as boolean
+	* 
+	* @returns { 
+	* 	field: Validated field id <string>,
+	* 	valid: validation result <boolean>
+	* }
+	*/
 	static submitValidation(callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
-		const storedFieldDatas = store.getState().fields;
-		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldDatas);
+		const storedFieldsData = store.getState().fields;
+		const agreementsValidationResult = this.validateAgreementsFieldsRequirement();
+		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldsData);
 		fieldsArray.forEach((submitedField) => {
 			const { id, value } = submitedField as { id: keyof typeof ValidationPatterns, value: string };
 			const fieldValidationResult = ValidationPatterns[id].test(value);
@@ -21,8 +46,35 @@ class formRepository {
 		} else {
 			store.dispatch(resetValidationErrors());
 		}
+		const isValid = invalidFields.length === 0 && !agreementsValidationResult.some(field => !field.valid);
+		callback && callback(fieldsArray, validationResult, isValid, agreementsValidationResult);
+	}
 
-		callback && callback(fieldsArray, validationResult, !!invalidFields.length);
+	/**
+	* @member validateAgreementsFieldsRequirement
+	* Validate agreement fields if those are present in validated form component.
+	* The check is made against required fields 
+	* 
+	* @returns { 
+	* 	agreementField: Validated field id <string>,
+	* 	valid: validation result <boolean>
+	* }
+	*/
+	static validateAgreementsFieldsRequirement():AgreementValidation {
+		const agreementsFieldsData = agreementsStore.getState().agreementsFields;
+		const composeReturn = (agreementField: string, valid:boolean) => ({
+			agreementField,
+			valid
+		});
+		const requirementValidation = agreementsFieldsData.map(field => {
+			if (field.required) {
+				if (!field.checked && field.required) {
+					return composeReturn(field.id, false);
+				} 
+				return composeReturn(field.id, true);				
+			}
+		}).filter(Boolean);
+		return requirementValidation as AgreementValidation;
 	}
 }
 
