@@ -8,7 +8,7 @@ import { AgreementValidation } from '../Agreements/store/redux/agreementsStore.m
 
 type OptionalStyle = StyleProp<ViewStyle>
 
-export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementValidation, ) => void
+export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementValidation) => void
 
 interface AdditionalFormSubFields<T = boolean> {
 	forgotPasswordRedirect?: T,

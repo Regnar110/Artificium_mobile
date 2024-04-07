@@ -4,7 +4,7 @@ import { FieldValueUpdateType } from '../redux/models/actions.model';
 import { pushValidationErrorsToStore, resetValidationErrors } from '../redux/reducers/fieldsSubmitPatternsErrors';
 import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
-import { AgreementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
+import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 
 class formRepository {
 
@@ -33,7 +33,7 @@ class formRepository {
 	static submitValidation(callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
 		const storedFieldsData = store.getState().fields;
-		const agreementsValidationResult = this.validateAgreementsFieldsRequirement();
+		const requirementValidatedFields = this.validateAgreementsFieldsRequirement();
 		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldsData);
 		fieldsArray.forEach((submitedField) => {
 			const { id, value } = submitedField as { id: keyof typeof ValidationPatterns, value: string };
@@ -46,8 +46,8 @@ class formRepository {
 		} else {
 			store.dispatch(resetValidationErrors());
 		}
-		const isValid = invalidFields.length === 0 && !agreementsValidationResult.some(field => !field.valid);
-		callback && callback(fieldsArray, validationResult, isValid, agreementsValidationResult);
+		const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
+		callback && callback(fieldsArray, validationResult, isValid, requirementValidatedFields);
 	}
 
 	/**
@@ -60,21 +60,24 @@ class formRepository {
 	* 	valid: validation result <boolean>
 	* }
 	*/
-	static validateAgreementsFieldsRequirement():AgreementValidation {
+	static validateAgreementsFieldsRequirement():AgreementRequirementValidation {
 		const agreementsFieldsData = agreementsStore.getState().agreementsFields;
-		const composeReturn = (agreementField: string, valid:boolean) => ({
+		const composeReturn = (agreementField: string, checked: boolean, valid:boolean) => ({
 			agreementField,
+			checked,
 			valid
 		});
 		const requirementValidation = agreementsFieldsData.map(field => {
 			if (field.required) {
 				if (!field.checked && field.required) {
-					return composeReturn(field.id, false);
-				} 
-				return composeReturn(field.id, true);				
+					return composeReturn(field.id, field.checked, false);
+				}
+				return composeReturn(field.id, field.checked, true);				
 			}
+			return composeReturn(field.id, field.checked, true);
 		}).filter(Boolean);
-		return requirementValidation as AgreementValidation;
+	
+		return requirementValidation as AgreementRequirementValidation;
 	}
 }
 

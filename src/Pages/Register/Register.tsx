@@ -10,18 +10,32 @@ import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateCo
 
 const Register = () => {
 
-	const dummyRequest = async (formData) => await fetch('http://localhost:3000/register', {
-		method: 'POST', // *GET, POST, PUT, DELETE, etc.
-		mode: 'cors', // no-cors, *cors, same-origin
-		credentials: 'same-origin', // include, *same-origin, omit
-		headers: {
-			'Content-Type': 'application/json',
-			// 'Content-Type': 'application/x-www-form-urlencoded',
-		},
-		redirect: 'follow', // manual, *follow, error
-		referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-		body: JSON.stringify(formData), // body data type must match "Content-Type" header
-	});
+	const dummyRequest = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
+		console.log('FORM DATA');
+		console.log(formData);
+		console.log('------------------------');
+		console.log('VALIDATION RESULT');
+		console.log(formValidationResult);
+		console.log('------------------------');
+		console.log('IS VALID');
+		console.log(isValid);
+		console.log('------------------------');
+		console.log('AGREEMENTS VALIDATION DATA');
+		console.log(agreementsValidatedData);
+	}
+
+	// await fetch('http://localhost:3000/register', {
+	// 	method: 'POST', // *GET, POST, PUT, DELETE, etc.
+	// 	mode: 'cors', // no-cors, *cors, same-origin
+	// 	credentials: 'same-origin', // include, *same-origin, omit
+	// 	headers: {
+	// 		'Content-Type': 'application/json',
+	// 		// 'Content-Type': 'application/x-www-form-urlencoded',
+	// 	},
+	// 	redirect: 'follow', // manual, *follow, error
+	// 	referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+	// 	body: JSON.stringify(formData), // body data type must match "Content-Type" header
+	// });
 
 	return (
 		<TemplateContainer>
@@ -43,7 +57,7 @@ const Register = () => {
 								},
 								{
 									id: 'cookies',
-									required: true,
+									required: false,
 									textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'I agree to saving cookies'}</Text>
 								}
 							]

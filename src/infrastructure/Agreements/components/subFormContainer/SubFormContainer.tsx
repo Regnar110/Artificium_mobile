@@ -12,7 +12,6 @@ import { RootState } from '../../store/redux/store';
 const AgreementField = ({ id, required, textNode, agreementChangeHandler }:Agreement) => {
 	const dispatch = useDispatch();
 	const fieldState = useSelector((state:RootState) => getAgreementFieldState(state, id));
-	const fieldsSt = useSelector((state:RootState) => getAgreementFields(state));
 
 	const changeAgreementState = () => {
 		if (id === 'selectAll') {

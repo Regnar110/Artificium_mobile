@@ -7,9 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
 import FormContainer from './components/FormContainer/FormContainer';
 import formRepository from './store/repository/formRepo';
-import { Text } from 'react-native';
 import Agreements from '../Agreements/Agreements';
-import { COLORS } from '../enums';
 
 
 const Form = ({
