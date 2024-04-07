@@ -1,38 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import { COLORS } from '../enums';
+import React, { ReactNode } from 'react';
 import { styles } from './styles';
+import { Pressable, StyleProp, View, ViewStyle } from 'react-native';
 
 interface CustomCheckboxType {
 	isChecked: boolean,
-	callback?: (isChecked: boolean) => void;
+	iconRenderer:() => ReactNode
+	callback?: () => void;
+	containerStyles?: StyleProp<ViewStyle>
+	iconContainerStyles?: StyleProp<ViewStyle>
+	checkedStyles?: StyleProp<ViewStyle>
 }
 
-const CustomCheckbox = ({ callback, isChecked }:CustomCheckboxType) => {
-	/**
-	 * !TODO 
-	 * SelectAll nie działa. Nalezy to poprawić
-	 */
-	const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-	const checkedHandler = (checked: boolean) => {
-		setIsCheckboxChecked(checked);
-		callback && callback(checked);
+const CustomCheckbox = ({ callback, iconRenderer, isChecked, containerStyles, iconContainerStyles, checkedStyles }:CustomCheckboxType) => {
+	const checkedHandler = () => {
+		callback && callback();
 	};
-	
-	useEffect(() => {
-		typeof isChecked !== 'undefined' && setIsCheckboxChecked(isChecked);
-	}, [isChecked]);
-
 	return (
-		<BouncyCheckbox
-			innerIconStyle={ isCheckboxChecked || isChecked ? styles.checkBoxChecked : styles.checkboxUnchecked}
-			iconStyle={styles.checkboxIconStyle}
-			size={20}
-			textStyle={{fontSize: 14}}
-			fillColor={COLORS.NOBLE_400}
-			isChecked={isCheckboxChecked}
+		<Pressable
 			onPress={checkedHandler}
-		/>
+			style={
+				[styles.container, containerStyles, isChecked && [styles.checked, checkedStyles]]
+			}
+		>
+			<View style={[styles.iconContainer, iconContainerStyles]}>
+				{iconRenderer()}
+			</View>
+		</Pressable>
+
 	);
 };
 
