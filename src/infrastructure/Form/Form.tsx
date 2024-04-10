@@ -11,6 +11,7 @@ import Agreements from '../Agreements/Agreements';
 
 
 const Form = ({
+	formId,
 	fields,
 	hints,
 	agreements,
@@ -32,6 +33,7 @@ const Form = ({
 		submitButtonText,
 		hints,
 		fields,
+		formId
 	};
 	
 	const formThemeValues = {

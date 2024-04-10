@@ -47,6 +47,8 @@ class formRepository {
 			store.dispatch(resetValidationErrors());
 		}
 		const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
+
+		
 		callback && callback(fieldsArray, validationResult, isValid, requirementValidatedFields);
 	}
 

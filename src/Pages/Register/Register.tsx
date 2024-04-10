@@ -11,18 +11,18 @@ import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateCo
 const Register = () => {
 
 	const dummyRequest = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		console.log('FORM DATA');
-		console.log(formData);
-		console.log('------------------------');
-		console.log('VALIDATION RESULT');
-		console.log(formValidationResult);
-		console.log('------------------------');
-		console.log('IS VALID');
-		console.log(isValid);
-		console.log('------------------------');
-		console.log('AGREEMENTS VALIDATION DATA');
-		console.log(agreementsValidatedData);
-	}
+		// console.log('FORM DATA');
+		// console.log(formData);
+		// console.log('------------------------');
+		// console.log('VALIDATION RESULT');
+		// console.log(formValidationResult);
+		// console.log('------------------------');
+		// console.log('IS VALID');
+		// console.log(isValid);
+		// console.log('------------------------');
+		// console.log('AGREEMENTS VALIDATION DATA');
+		// console.log(agreementsValidatedData);
+	};
 
 	// await fetch('http://localhost:3000/register', {
 	// 	method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -44,6 +44,7 @@ const Register = () => {
 				<View style={styles.innerContainer}>
 					<Text style={styles.header}>Connect with your team and bring your creative ideas to life.</Text>
 					<Form
+						formId={'registerForm'}
 						agreements={{
 							selectAllField: {
 								textNode: () => <Text style={{color: COLORS.NOBLE_100}}>{'Select all'}</Text>,

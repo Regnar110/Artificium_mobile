@@ -4,22 +4,26 @@ import { styles } from './styles';
 import { FormContext } from '../../store/context/FormContexts';
 import { useDispatch } from 'react-redux';
 import { enableHintWarnings } from '../../store/redux/reducers/fieldsHintWarningsSlice';
-import { FieldsState } from '../../store/redux/models/actions.model';
+import { FormState } from '../../store/redux/models/actions.model';
 import { initFields } from '../../store/redux/reducers/fieldsSlice';
 import { ValidationPatterns } from '../../validationPatterns';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface FormContainerType {
 	children: ReactNode
 }
 
 const FormContainer = ({ children }:FormContainerType) => {
-	const { fieldLiveHints, fields, hints } = useContext(FormContext);
+	const { fieldLiveHints, fields, hints, formId } = useContext(FormContext);
 	const dispatch = useDispatch();
 
 	const prepareFieldsToStore = () => {
-		const preparedFields:FieldsState = {};
+		const preparedFields:FormState = {
+			formId,
+			fields: {}
+		};
 		for(const field of fields) {
-			preparedFields[field.id] = {
+			preparedFields.fields[field.id] = {
 				id: field.id,
 				value: ''
 			};
@@ -39,9 +43,11 @@ const FormContainer = ({ children }:FormContainerType) => {
 		}
 	};
 
-	useEffect(() => {
+	useFocusEffect(() => {
 		initializeStoreWithData();
-	}, []);
+
+		return () => console.log('UNFOCUS')
+	});
 	
 	return (
 		<View style={styles.form}>

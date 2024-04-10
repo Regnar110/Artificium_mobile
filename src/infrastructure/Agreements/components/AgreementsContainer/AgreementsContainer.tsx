@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { AgreementsContext, AgreementsPropsContext } from '../../store/context/AgreementsContext';
 import { View } from 'react-native';
-import AgreementField from '../subFormContainer/SubFormContainer';
+import AgreementField from '../AgreementField/AgreementField';
 import { useDispatch } from 'react-redux';
 import { initAgreementsFields } from '../../store/redux/reducers/agreementsFieldsSlice';
 

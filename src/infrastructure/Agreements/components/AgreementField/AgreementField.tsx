@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import CheckBlack from '../../../../public/svg/checkBlack.svg';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
@@ -6,7 +6,7 @@ import { Agreement } from '../../agreements.model';
 import CustomCheckbox from '../../../CustomCheckbox/CustomCheckbox';
 import { COLORS } from '../../../enums';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAgreementFieldState, getAgreementFields, selectAllFields, setOppositeValueOnAgreementField } from '../../store/redux/reducers/agreementsFieldsSlice';
+import { getAgreementFieldState, selectAllFields, setOppositeValueOnAgreementField } from '../../store/redux/reducers/agreementsFieldsSlice';
 import { RootState } from '../../store/redux/store';
 
 const AgreementField = ({ id, required, textNode, agreementChangeHandler }:Agreement) => {

@@ -33,20 +33,6 @@ const fieldsHintWarningsSlice = createSlice({
 				});				
 			}
 		}
-
-		// pushHintWarningToStore: (state, action) => {
-		// 	if (state.fields.findIndex(warning => warning.field === action.payload.field) === -1) {
-		// 		state.fields.push(action.payload);
-		// 	}
-		// },
-
-		// removeHintErrorFromStore: (state, action) => {
-		// 	const filteredFields = state.fields.filter(warning => warning.field !== action.payload);
-		// 	Object.assign(state, {
-		// 		...state,
-		// 		fields: filteredFields
-		// 	});
-		// }
 	},
 });
 

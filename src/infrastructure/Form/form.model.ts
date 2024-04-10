@@ -3,12 +3,12 @@ import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { FieldValueUpdateType } from './store/redux/models/actions.model';
 import { ValidationPatterns } from './validationPatterns';
 import { AgreementsComponentType } from '../Agreements/agreements.model';
-import { AgreementValidation } from '../Agreements/store/redux/agreementsStore.model';
+import { AgreementValidationResult } from '../Agreements/store/redux/agreementsStore.model';
 
 
 type OptionalStyle = StyleProp<ViewStyle>
 
-export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementValidation) => void
+export type OnSubmitCallback = (formData:FieldValueUpdateType[], validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementValidationResult) => void
 
 interface AdditionalFormSubFields<T = boolean> {
 	forgotPasswordRedirect?: T,
@@ -36,6 +36,7 @@ export type FormField = {
 }
 
 export interface FormContextType extends AdditionalFormSubFields, FieldLiveHints {
+	formId: string,
 	sharedFieldProps?: TextInputProps,
 	fields: FormField[],
 	submitButtonText: string
@@ -59,7 +60,7 @@ export interface FormThemeType {
 }
 
 export interface FormAgreements {
-	agreements: AgreementsComponentType
+	agreements?: AgreementsComponentType
 }
 
 export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields & FieldLiveHints & FormAgreements

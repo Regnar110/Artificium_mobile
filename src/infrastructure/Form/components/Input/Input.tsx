@@ -11,9 +11,9 @@ import InputFieldError from '../inputFieldError/InputFieldError';
 const Input = () => {
 
 	const dispatch = useDispatch();
-	const { sharedFieldProps } = useContext(FormContext);
+	const { sharedFieldProps, formId } = useContext(FormContext);
 	const { id, iconRenderer, fieldSpecificProps } = useContext(FormInputContext);
-	const storedField = useSelector((state:RootState) => singleFieldSelector(state, id));
+	const storedField = useSelector((state:RootState) => singleFieldSelector(state, id, formId));
 	const [ isFocused, setIsFocused ] = useState(false);
 	const changeFocusState = () => setIsFocused(!isFocused);
 	
@@ -21,7 +21,7 @@ const Input = () => {
 		<View id={id}>
 			<View style={styles.inputWrapper}>
 				{ iconRenderer && iconRenderer()}
-				<TextInput onFocus={changeFocusState} onBlur={changeFocusState} onChangeText={(value) => dispatch(updateFieldValue({id, value})) } value={storedField?.value} {...sharedFieldProps} {...fieldSpecificProps} style={styles.input}/>
+				<TextInput onFocus={changeFocusState} onBlur={changeFocusState} onChangeText={(value) => dispatch(updateFieldValue({targetFormId: formId,  fieldPayload: {id, value} })) } value={storedField?.value} {...sharedFieldProps} {...fieldSpecificProps} style={styles.input}/>
 			</View>
 			<InputFieldHint isFocused={isFocused} />
 			<InputFieldError />

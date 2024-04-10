@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { COLORS } from '../../infrastructure/enums';
@@ -27,7 +27,15 @@ const SignIn = () => {
 						<Text style={styles.headerDescription}>Log in to Artificium to start creating magic</Text>     
 					</View>
 					<Form
-						onSubmitCallback={(formData) => formData}
+						formId={'signinForm'}
+						agreements={{
+							agreementFields: [{
+								required: false,
+								textNode: () => <Text style={{color: '#fff'}}>{'Remember me'}</Text>,
+								id: 'rememberMe'
+							}]
+						}}
+						onSubmitCallback={(formData, formValidationResult, isValid) => isValid}
 						submitButtonText='Log in'
 						sharedFieldProps={{
 							selectionColor: '#fff',
