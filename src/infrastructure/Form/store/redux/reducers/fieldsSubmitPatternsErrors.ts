@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { ValidationResult } from '../../../form.model';
+import { ValidationResult } from '../models/form.model';
 
 const initialState:Array<ValidationResult> = [];
 

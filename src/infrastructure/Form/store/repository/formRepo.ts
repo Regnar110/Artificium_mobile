@@ -1,6 +1,5 @@
-import { OnSubmitCallback, ValidationResult } from '../../form.model';
+import { OnSubmitCallback, ValidationResult } from '../redux/models/form.model';
 import { ValidationPatterns } from '../../validationPatterns';
-import { FieldValueUpdateType } from '../redux/models/actions.model';
 import { pushValidationErrorsToStore, resetValidationErrors } from '../redux/reducers/fieldsSubmitPatternsErrors';
 import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
@@ -30,26 +29,35 @@ class formRepository {
 	* 	valid: validation result <boolean>
 	* }
 	*/
-	static submitValidation(callback?: OnSubmitCallback) {
+	static submitValidation(formId: string, callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
 		const storedFieldsData = store.getState().fields;
 		const requirementValidatedFields = this.validateAgreementsFieldsRequirement();
-		const fieldsArray:FieldValueUpdateType[] = Object.values(storedFieldsData);
-		fieldsArray.forEach((submitedField) => {
-			const { id, value } = submitedField as { id: keyof typeof ValidationPatterns, value: string };
-			const fieldValidationResult = ValidationPatterns[id].test(value);
-			validationResult.push({ field: id, valid: fieldValidationResult});
-		});
-		const invalidFields = validationResult.filter(result => !result.valid);
-		if (invalidFields.length) {
-			store.dispatch(pushValidationErrorsToStore(invalidFields));
-		} else {
-			store.dispatch(resetValidationErrors());
+		const fieldsArray = Object.values(storedFieldsData);
+		const currentFormFields = fieldsArray.find(form => form.formId === formId);
+		if (currentFormFields) {
+			const { fields } = currentFormFields;
+			for( const field in fields) {
+				const { id, value } = fields[field] as { id: keyof typeof ValidationPatterns, value: string };
+				const fieldValidationResult = ValidationPatterns[id].test(value);
+				validationResult.push({ field: id, valid: fieldValidationResult});
+			}
+			
+			const invalidFields = validationResult.filter(result => !result.valid);
+			if (invalidFields.length) {
+				/**
+				 * TODO Tutaj w walidacji pushowana jest tablica z wynikami walidacji. W aktualnej jej formie, jest błąd, który powoduje że,
+				 * nie ma rozróżnienia dla formy która jest walidowana.
+				 */
+				store.dispatch(pushValidationErrorsToStore(invalidFields));
+			} else {
+				store.dispatch(resetValidationErrors());
+			}
+			const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
+	
+			
+			callback && callback(currentFormFields, validationResult, isValid, requirementValidatedFields);
 		}
-		const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
-
-		
-		callback && callback(fieldsArray, validationResult, isValid, requirementValidatedFields);
 	}
 
 	/**

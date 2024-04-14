@@ -1,7 +1,7 @@
 import React from 'react';
 import InputsContainer from './components/inputsContainer/InputsContainer';
 import { FormContextProvider, FormThemeProvider } from './store/context/FormContexts';
-import { FormType } from './form.model';
+import { FormType } from './store/redux/models/form.model';
 import CustomButton from '../CustomButton/CustomButton';
 import { Provider } from 'react-redux';
 import { store } from './store/redux/store';
@@ -40,7 +40,7 @@ const Form = ({
 		optionalStyles
 	};
 
-	const submit = () => formRepository.submitValidation(onSubmitCallback);
+	const submit = () => formRepository.submitValidation(formId, onSubmitCallback);
 	
 	return (
 		<FormContextProvider value={formContextValues}>

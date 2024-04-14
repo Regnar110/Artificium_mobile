@@ -69,7 +69,7 @@ const Register = () => {
 							[
 								{
 									id: 'e-mail',
-									message: 'Remember to enter the correct email address. This will make it easier for us to contact you'
+									message: 'Remember to enter the correct email address. This will make it easier for us to contact you',
 								},
 								{
 									id: 'password',

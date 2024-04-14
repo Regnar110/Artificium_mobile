@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { FormContextType, FormField, FormThemeType } from '../../form.model';
+import { FormContextType, FormField, FormThemeType } from '../redux/models/form.model';
 
 export const FormContext = createContext<FormContextType>({} as FormContextType);
 export const FormContextProvider = FormContext.Provider;

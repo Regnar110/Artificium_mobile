@@ -1,13 +1,13 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import { View } from 'react-native';
 import { styles } from './styles';
 import { FormContext } from '../../store/context/FormContexts';
 import { useDispatch } from 'react-redux';
 import { enableHintWarnings } from '../../store/redux/reducers/fieldsHintWarningsSlice';
-import { FormState } from '../../store/redux/models/actions.model';
+import { InitFormTypePayload } from '../../store/redux/models/actions.model';
 import { initFields } from '../../store/redux/reducers/fieldsSlice';
-import { ValidationPatterns } from '../../validationPatterns';
 import { useFocusEffect } from '@react-navigation/native';
+import { StateStoredHint } from '../../store/redux/models/form.model';
 
 interface FormContainerType {
 	children: ReactNode
@@ -18,7 +18,7 @@ const FormContainer = ({ children }:FormContainerType) => {
 	const dispatch = useDispatch();
 
 	const prepareFieldsToStore = () => {
-		const preparedFields:FormState = {
+		const preparedFields:InitFormTypePayload = {
 			formId,
 			fields: {}
 		};
@@ -35,18 +35,16 @@ const FormContainer = ({ children }:FormContainerType) => {
 		const initialStoreFields = prepareFieldsToStore();
 		dispatch(initFields(initialStoreFields));
 		if( fieldLiveHints && hints){
-			const enchancedHints:Array<{ id: keyof typeof ValidationPatterns, message:string, visible:boolean}> = [];
+			const enchancedHints:Array<StateStoredHint> = [];
 			hints.forEach(hint => {
 				enchancedHints.push({...hint, visible: false});
 			});
-			dispatch(enableHintWarnings({enabled: fieldLiveHints, fieldsHints: enchancedHints}));
+			dispatch(enableHintWarnings({formId, enabled: fieldLiveHints, hints: enchancedHints}));
 		}
 	};
 
 	useFocusEffect(() => {
 		initializeStoreWithData();
-
-		return () => console.log('UNFOCUS')
 	});
 	
 	return (

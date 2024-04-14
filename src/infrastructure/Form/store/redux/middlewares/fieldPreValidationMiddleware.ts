@@ -15,32 +15,34 @@ import { RootState } from '../store';
  * ? Based on this slice user sees hint warrnings under certain input field.
 */
 
-type MiddlewarePayloadActionType = PayloadAction<{id: keyof typeof ValidationPatterns, value:string}, string>
+type MiddlewarePayloadActionType = PayloadAction<{ fieldPayload: { id: keyof typeof ValidationPatterns, value:string }, targetFormId: string }>
 
 export const fieldPreValidationMiddleware = createListenerMiddleware();
 fieldPreValidationMiddleware.startListening({
 	predicate: (action, currentState) => {
 		const { fieldHintWarnings } = currentState as RootState;
 		const { type, payload } = action as MiddlewarePayloadActionType;
+		const isFielHintsEnabledForForm = fieldHintWarnings.some(formHints => formHints.formId === payload.targetFormId && formHints.enabled);
 		return (
-			fieldHintWarnings.enabled 
+			isFielHintsEnabledForForm
 			&&
 			type === 'fields/updateFieldValue'
 			&&
-			Object.keys(ValidationPatterns).includes(payload.id)
+			Object.keys(ValidationPatterns).includes(payload.fieldPayload.id)
 		);
 	},
 	effect: (action, listenerAPI)=> {
 		const { payload } = action as MiddlewarePayloadActionType;
-		const validationRegExp = ValidationPatterns[payload.id];
+		const { fieldPayload, targetFormId } = payload;
+		const validationRegExp = ValidationPatterns[fieldPayload.id];
 		
-		if (!payload.value) {
-			listenerAPI.dispatch(switchHintVisibility(payload.id));
+		if (!fieldPayload.value) {
+			listenerAPI.dispatch(switchHintVisibility({fieldId: fieldPayload.id, targetFormId}));
 			return;
 		}
 
 		if (validationRegExp) {
-			listenerAPI.dispatch(switchHintVisibility(payload.id));
+			listenerAPI.dispatch(switchHintVisibility({fieldId: fieldPayload.id, targetFormId}));
 			// if (!validationRegExp.test(payload.value)) {
 			// 	listenerAPI.dispatch(switchHintVisibility(payload.id));
 			// } else {

@@ -1,10 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { FormHintsState } from '../models/form.model';
 
-const initialState = {
-	enabled: false, 
-	fieldsHints: []
-} as {enabled:boolean, fieldsHints: Array<{id: string, message: string, visible: boolean}>};
+const initialState = [] as Array<FormHintsState>;
 
 const fieldsHintWarningsSlice = createSlice({
 	name: 'fieldsHintWarnings',
@@ -12,26 +10,25 @@ const fieldsHintWarningsSlice = createSlice({
 	reducers: {
 
 		enableHintWarnings: (state, action) => {
-			Object.assign(state, action.payload);
+			const isFormHintsAlreadyExist = state.some(formHints => formHints.formId === action.payload.formId);
+			if (!isFormHintsAlreadyExist) {
+				state.push(action.payload);
+			}
 		},
 
 		switchHintVisibility: (state, action) => {
-			const { id } = action.payload;
-			if(state.fieldsHints.length) {
-				const modifiedHints = state.fieldsHints.map(hint => {
-					if (hint.id === id) {
-						const newHint = {
-							...hint,
-							visible: !hint.visible
-						};
-						return newHint;
-					} else return hint;
-				});
-				Object.assign(state, {
-					...state,
-					fieldsHints: modifiedHints
-				});				
-			}
+			const { fieldId, targetFormId } = action.payload;
+			return state.map(formHints => {
+				if (formHints.formId !== targetFormId) return formHints;
+				const hintIndex = formHints.hints.findIndex(hint => hint.id === fieldId);
+				if (hintIndex === -1) return formHints;
+				return {
+					...formHints,
+					hints: formHints.hints.map((hint, index) => 
+						index === hintIndex ? { ...hint, visible: !hint.visible } : hint
+					)
+				};
+			});
 		}
 	},
 });
@@ -40,6 +37,10 @@ export const { switchHintVisibility, enableHintWarnings } = fieldsHintWarningsSl
   
 export default fieldsHintWarningsSlice.reducer;
 
-export const getFieldHintIfExist = (state:RootState, id:string) => {
-	return state.fieldHintWarnings.fieldsHints.find(hint => hint.id === id);
+export const getFieldHintIfExist = (state:RootState, payload: { id:string, formId: string }) => {
+	const { id, formId } = payload;
+	const searchedFormIndex = state.fieldHintWarnings.findIndex(formHints => formHints.formId === formId);
+	if (state.fieldHintWarnings[searchedFormIndex]) {
+		return state.fieldHintWarnings[searchedFormIndex].hints.find(hint => hint.id === id);
+	}
 };

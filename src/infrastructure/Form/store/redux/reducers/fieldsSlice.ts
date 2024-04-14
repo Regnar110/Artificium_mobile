@@ -15,14 +15,14 @@ export const fieldsSlice = createSlice({
 			if (!isFormIdAlreadyExist) {
 				state.push(action.payload);
 			} else {
-				throw Error('Tried to initialize redux FieldSlice State with form id that already exist in state');
+				return;
 			}
 			
 		},
 
 		updateFieldValue: (state:FormState, action:PayloadAction<FieldUpdatePayload>) => {
 			/**
-			 * TODO - akceptujemy już i modyfikujemy stan w konkretnej formie. Od tego punktu nalezy dokonać dalszych zmian dot.
+			 * TODO - akceptujemy już i modyfikujemy stan w konkretnym formie. Od tego punktu nalezy dokonać dalszych zmian dot.
 			 * TODO - wprowadzenia obsługi formularzy działających jednocześnie obok siebie.
 			 * TODO - Do tego nalezy dodać możliwość decydowania o tym czy formularz ma byc cachowany na widoku czy też nie.
 			 * TODO - jeżeli tak, jego wartości będą zapisywane w stanie. Jeżeli nie, przy odfocusowaniu formularza( przejściu na inny Tab)
