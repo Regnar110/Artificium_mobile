@@ -5,30 +5,36 @@ import AgreementField from '../AgreementField/AgreementField';
 import { useDispatch } from 'react-redux';
 import { initAgreementsFields } from '../../store/redux/reducers/agreementsFieldsSlice';
 
-
 const AgreementsContainer = () => {
 	const agreements = useContext(AgreementsContext);
-	const { selectAllField } = useContext(AgreementsPropsContext);
+	const { selectAllField, parentFormId } = useContext(AgreementsPropsContext);
 	const dispatch = useDispatch();
 	const composeAgreementsState = () => {
-		const agreementsState = agreements.map(agreement => {
+		const agreementFields = agreements.map(agreement => {
 			const { id, required } = agreement;
 			return { id, required, checked: false };
 		});
 		if (selectAllField) {
-			agreementsState.push({
+			agreementFields.push({
 				id: 'selectAll',
 				required: false,
 				checked: false
 			});
 		}
-		return agreementsState;	
+
+		const formAgreementsInitialState = {
+			parentFormId,
+			agreementFields
+		};
+
+		return formAgreementsInitialState;	
 	};
+	
 	useEffect(() => {
 		/**
 		 * !Agreements state initialization
 		 */
-		
+
 		dispatch(initAgreementsFields(composeAgreementsState()));
 	}, []);
 	return (

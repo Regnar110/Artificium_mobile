@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CheckBlack from '../../../../public/svg/checkBlack.svg';
 import { Text, View } from 'react-native';
 import { styles } from './styles';
@@ -8,16 +8,18 @@ import { COLORS } from '../../../enums';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAgreementFieldState, selectAllFields, setOppositeValueOnAgreementField } from '../../store/redux/reducers/agreementsFieldsSlice';
 import { RootState } from '../../store/redux/store';
+import { AgreementsPropsContext } from '../../store/context/AgreementsContext';
 
 const AgreementField = ({ id, required, textNode, agreementChangeHandler }:Agreement) => {
+	const { parentFormId } = useContext(AgreementsPropsContext);
 	const dispatch = useDispatch();
-	const fieldState = useSelector((state:RootState) => getAgreementFieldState(state, id));
+	const fieldState = useSelector((state:RootState) => getAgreementFieldState(state, parentFormId, id));
 
 	const changeAgreementState = () => {
 		if (id === 'selectAll') {
 			dispatch(selectAllFields(!fieldState));
 		} else {
-			dispatch(setOppositeValueOnAgreementField(id));
+			dispatch(setOppositeValueOnAgreementField({ parentFormId, id }));
 		}
 		(agreementChangeHandler && typeof fieldState !== 'undefined') && agreementChangeHandler(id, fieldState);
 	};

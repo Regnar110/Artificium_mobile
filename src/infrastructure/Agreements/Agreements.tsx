@@ -5,10 +5,11 @@ import { AgreementsPropsProvider, AgreementsProvider } from './store/context/Agr
 import { AgreementsComponentType } from './agreements.model';
 import AgreementsContainer from './components/AgreementsContainer/AgreementsContainer';
 
-const Agreements = ({ agreementFields, selectAllField }: AgreementsComponentType) => {
+const Agreements = ({ parentFormId, agreementFields, selectAllField }: AgreementsComponentType) => {
 	return (
 		<AgreementsProvider value={agreementFields}>
 			<AgreementsPropsProvider value={{
+				parentFormId,
 				selectAllField
 			}}>
 				<Provider store={agreementsStore}>

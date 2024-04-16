@@ -8,6 +8,7 @@ export interface Agreement {
 }
 
 export interface AgreementsProps {
+	parentFormId:string,
 	selectAllField?: {
 		textNode: () => ReactNode
 		selectAllHandler?: (id: string, fieldState: boolean) => void

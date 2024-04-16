@@ -11,15 +11,15 @@ import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateCo
 const Register = () => {
 
 	const dummyRequest = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		// console.log('FORM DATA');
-		// console.log(formData);
-		// console.log('------------------------');
-		// console.log('VALIDATION RESULT');
-		// console.log(formValidationResult);
-		// console.log('------------------------');
-		// console.log('IS VALID');
-		// console.log(isValid);
-		// console.log('------------------------');
+		console.log('FORM DATA');
+		console.log(formData);
+		console.log('------------------------');
+		console.log('VALIDATION RESULT');
+		console.log(formValidationResult);
+		console.log('------------------------');
+		console.log('IS VALID');
+		console.log(isValid);
+		console.log('------------------------');
 		// console.log('AGREEMENTS VALIDATION DATA');
 		// console.log(agreementsValidatedData);
 	};

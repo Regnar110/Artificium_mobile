@@ -50,6 +50,7 @@ const Form = ({
 						<InputsContainer />
 						{
 							agreements && <Agreements
+								parentFormId={formId}
 								selectAllField={agreements.selectAllField}
 								agreementFields={agreements.agreementFields}
 							/>
