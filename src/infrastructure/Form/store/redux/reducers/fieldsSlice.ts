@@ -30,7 +30,7 @@ export const fieldsSlice = createSlice({
 			 */
 			const { targetFormId, fieldPayload } = action.payload;
 			const searchedFormId = state.findIndex(form => form.formId === targetFormId);
-			if(fieldPayload.value) {
+			if( typeof fieldPayload.value === 'string') {
 				state[searchedFormId].fields[fieldPayload.id].value = fieldPayload.value;
 			}
 			// if(action.payload.fieldPayload.value) state.fields[action.payload.fieldPayload.id].value = action.payload.value;

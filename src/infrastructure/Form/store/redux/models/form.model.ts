@@ -16,6 +16,11 @@ interface AdditionalFormSubFields<T = boolean> {
 	termsAgreement?: T,
 }
 
+export interface ValidationResultState {
+	formId: string,
+	invalidFields: Array<ValidationResult>
+}
+
 export interface ValidationResult {
 	field: keyof typeof ValidationPatterns,
 	valid: boolean

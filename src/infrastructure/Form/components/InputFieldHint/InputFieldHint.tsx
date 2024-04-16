@@ -15,7 +15,7 @@ const InputFieldHint = ({ isFocused }:InputFieldHintType) => {
 	const { id } = useContext(FormInputContext);
 	const { formId } = useContext(FormContext);
 	const hint = useSelector((state:RootState) => getFieldHintIfExist(state, { id, formId }));
-	const error = useSelector((state:RootState) => getFieldErrors(state, id));
+	const error = useSelector((state:RootState) => getFieldErrors(state, formId, id));
 	return (isFocused && hint && !error) && <Text style={styles.inputLiveHint}>{hint.message}</Text>;
 };
 

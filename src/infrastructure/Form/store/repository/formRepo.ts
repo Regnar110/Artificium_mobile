@@ -5,6 +5,11 @@ import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 
+
+/**
+ * @class formRepository
+ * @description contains form utility methods like submit.
+ */
 class formRepository {
 
 	/**
@@ -44,14 +49,16 @@ class formRepository {
 			}
 			
 			const invalidFields = validationResult.filter(result => !result.valid);
+
 			if (invalidFields.length) {
-				/**
-				 * TODO Tutaj w walidacji pushowana jest tablica z wynikami walidacji. W aktualnej jej formie, jest błąd, który powoduje że,
-				 * nie ma rozróżnienia dla formy która jest walidowana.
-				 */
-				store.dispatch(pushValidationErrorsToStore(invalidFields));
+				const invalidFormFields = {
+					formId,
+					invalidFields
+				};
+
+				store.dispatch(pushValidationErrorsToStore(invalidFormFields));
 			} else {
-				store.dispatch(resetValidationErrors());
+				store.dispatch(resetValidationErrors(formId));
 			}
 			const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
 	

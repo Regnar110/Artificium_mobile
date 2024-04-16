@@ -16,12 +16,24 @@ const Input = () => {
 	const storedField = useSelector((state:RootState) => singleFieldSelector(state, id, formId));
 	const [ isFocused, setIsFocused ] = useState(false);
 	const changeFocusState = () => setIsFocused(!isFocused);
-	
+
+	const handleInputValueChange = (value: string) => {
+		dispatch(updateFieldValue({targetFormId: formId,  fieldPayload: {id, value} }));
+	};
+
 	return (
 		<View id={id}>
 			<View style={styles.inputWrapper}>
 				{ iconRenderer && iconRenderer()}
-				<TextInput onFocus={changeFocusState} onBlur={changeFocusState} onChangeText={(value) => dispatch(updateFieldValue({targetFormId: formId,  fieldPayload: {id, value} })) } value={storedField?.value} {...sharedFieldProps} {...fieldSpecificProps} style={styles.input}/>
+				<TextInput
+					onFocus={changeFocusState}
+					onBlur={changeFocusState}
+					onChangeText={handleInputValueChange}
+					value={storedField?.value}
+					{...sharedFieldProps}
+					{...fieldSpecificProps}
+					style={styles.input}
+				/>
 			</View>
 			<InputFieldHint isFocused={isFocused} />
 			<InputFieldError />
