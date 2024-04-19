@@ -26,9 +26,12 @@ export const agreementsFieldsSlice = createSlice({
 			 * If selectAll is set to true when pressing on agreements field ( we assume that this field is then set to true(checked) ) then
 			 * this single field is unchecked but selectAll field also.
 			 */
-			const selectAllFieldIndex: boolean = state[agreementsIndex].agreementFields.some(agreementsState => agreementsState.checked === false);
-			if(selectAllFieldIndex) {
+			const selectAllFieldState: boolean = state[agreementsIndex].agreementFields.some(agreementsState => agreementsState.checked === false);
+			if(selectAllFieldState ) {
 				const selectAllIndex = state[agreementsIndex].agreementFields.findIndex(field => field.id === 'selectAll');
+
+				if ( selectAllIndex === -1) return; 
+
 				const selectAllState: boolean = state[agreementsIndex].agreementFields[selectAllIndex].checked;
 			
 				if(selectAllState) {
@@ -72,4 +75,4 @@ export const getAgreementFieldState = ({ agreementsFields }: RootState, parentFo
 
 export const getAgreementFields = ({ agreementsFields }: RootState, parentFormId: string) => {
 	return agreementsFields.find(agreements => agreements.parentFormId === parentFormId);
-}
+};

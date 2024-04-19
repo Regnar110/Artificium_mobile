@@ -4,6 +4,7 @@ import { pushValidationErrorsToStore, resetValidationErrors } from '../redux/red
 import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
+import { pushAgreementsValidationErrors, resetAgreementsValidationErrors } from '../../../Agreements/store/redux/reducers/agreementsFieldsErrorsSlice';
 
 
 /**
@@ -37,7 +38,7 @@ class formRepository {
 	static submitValidation(formId: string, callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
 		const storedFieldsData = store.getState().fields;
-		const requirementValidatedFields = this.validateAgreementsFieldsRequirement();
+		const requirementValidatedFields = this.validateAgreementsFieldsRequirement(formId);
 		const fieldsArray = Object.values(storedFieldsData);
 		const currentFormFields = fieldsArray.find(form => form.formId === formId);
 		if (currentFormFields) {
@@ -60,8 +61,15 @@ class formRepository {
 			} else {
 				store.dispatch(resetValidationErrors(formId));
 			}
+
+			const inValidAgreements = requirementValidatedFields.filter(field => !field.valid);
+			if (inValidAgreements.length) {
+				agreementsStore.dispatch(pushAgreementsValidationErrors({parentFormId: formId, inValidAgreements}));
+			} else {
+				agreementsStore.dispatch(resetAgreementsValidationErrors({ parentFormId: formId }));
+			}
 			const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
-	
+			
 			
 			callback && callback(currentFormFields, validationResult, isValid, requirementValidatedFields);
 		}
@@ -77,14 +85,16 @@ class formRepository {
 	* 	valid: validation result <boolean>
 	* }
 	*/
-	static validateAgreementsFieldsRequirement():AgreementRequirementValidation {
+	static validateAgreementsFieldsRequirement(parentFormId: string):AgreementRequirementValidation {
 		const agreementsFieldsData = agreementsStore.getState().agreementsFields;
+		const formAgreements = agreementsFieldsData.find(formAgreements => formAgreements.parentFormId === parentFormId);
+
 		const composeReturn = (agreementField: string, checked: boolean, valid:boolean) => ({
 			agreementField,
 			checked,
 			valid
 		});
-		const requirementValidation = agreementsFieldsData.map(field => {
+		const requirementValidation = formAgreements?.agreementFields.map(field => {
 			if (field.required) {
 				if (!field.checked && field.required) {
 					return composeReturn(field.id, field.checked, false);
