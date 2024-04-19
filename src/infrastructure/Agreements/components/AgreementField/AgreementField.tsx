@@ -17,7 +17,7 @@ const AgreementField = ({ id, required, textNode, agreementChangeHandler }:Agree
 
 	const changeAgreementState = () => {
 		if (id === 'selectAll') {
-			dispatch(selectAllFields(!fieldState));
+			dispatch(selectAllFields({ parentFormId, checked: !fieldState }));
 		} else {
 			dispatch(setOppositeValueOnAgreementField({ parentFormId, id }));
 		}

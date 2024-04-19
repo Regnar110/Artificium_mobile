@@ -26,35 +26,36 @@ export const agreementsFieldsSlice = createSlice({
 			 * If selectAll is set to true when pressing on agreements field ( we assume that this field is then set to true(checked) ) then
 			 * this single field is unchecked but selectAll field also.
 			 */
-
-			/**
-			 * TODO select all do obsługi. 
-			 */
-			const selectAllFieldIndex = state[agreementsIndex].agreementFields.findIndex(agreementsState => agreementsState.id === 'selectAll');
-			if(selectAllFieldIndex !== -1) {
-				const selectAllState = state[agreementsIndex].agreementFields[selectAllFieldIndex].checked;
-				console.log(selectAllState)
+			const selectAllFieldIndex: boolean = state[agreementsIndex].agreementFields.some(agreementsState => agreementsState.checked === false);
+			if(selectAllFieldIndex) {
+				const selectAllIndex = state[agreementsIndex].agreementFields.findIndex(field => field.id === 'selectAll');
+				const selectAllState: boolean = state[agreementsIndex].agreementFields[selectAllIndex].checked;
+			
 				if(selectAllState) {
-					state[agreementsIndex].agreementFields[selectAllFieldIndex].checked = !selectAllState;
+					state[agreementsIndex].agreementFields[selectAllIndex].checked = !selectAllState;
 				}
 
 				/**
 				 * @SelectAllModifier
 				 * ! Set  selectAll field to true if all other fields are set to true
 				 */
-				// const areAllFieldsSelected = !state.some(field => field.id !== 'selectAll' && !field.checked);
-				// if(areAllFieldsSelected && !selectAllState) {
-				// 	state[selectAllFieldIndex].checked = true;
-				// }
+				const areAllFieldsSelected = !state[agreementsIndex].agreementFields.some(field => field.id !== 'selectAll' && !field.checked);
+				if(areAllFieldsSelected && !selectAllState) {
+					state[agreementsIndex].agreementFields[selectAllIndex].checked = true;
+				}
 			}
 		}, 
 		
 		selectAllFields: (state, action:PayloadAction<{ parentFormId: string, checked: boolean }>) => {
-			const newState = state.map(field => {
-				field.checked = action.payload;
-				return field;
-			});
-			state = newState;
+			const { parentFormId, checked } = action.payload;
+
+			const formIndex = state.findIndex(form => form.parentFormId === parentFormId);
+			if (formIndex !== -1) {
+				state[formIndex].agreementFields.forEach(field => {
+					field.checked = checked;
+				});
+			}
+
 		}
 	},
 });
