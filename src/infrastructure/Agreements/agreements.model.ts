@@ -19,4 +19,5 @@ export interface Agreements {
 	agreementFields: Agreement[]
 }
 
-export type AgreementsComponentType = Agreements & Omit<AgreementsProps, 'parentFormId'>;
+export type FormAgreementsType = Agreements & Omit<AgreementsProps, 'parentFormId'>;
+export type AgreementsComponentType = Agreements & AgreementsProps

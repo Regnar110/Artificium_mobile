@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { StyleProp, TextInputProps, ViewStyle } from 'react-native';
 import { InitFormTypePayload } from './actions.model';
 import { ValidationPatterns } from '../../../validationPatterns';
-import { AgreementsComponentType } from '../../../../Agreements/agreements.model';
+import { FormAgreementsType } from '../../../../Agreements/agreements.model';
 import { AgreementRequirementValidation } from '../../../../Agreements/store/redux/agreementsStore.model';
 
 
@@ -38,7 +38,7 @@ export interface FormContextType extends AdditionalFormSubFields, ComponentHints
 	sharedFieldProps?: TextInputProps,
 	fields: FormField[],
 	submitButtonText: string
-	onSubmitCallback?: OnSubmitCallback
+	onSubmitCallback: OnSubmitCallback
 }
 
 export interface FormThemeType {
@@ -58,7 +58,7 @@ export interface FormThemeType {
 }
 
 export interface FormAgreements {
-	agreements?: AgreementsComponentType
+	agreements?: FormAgreementsType
 }
 
 export type FormType =  FormContextType & FormThemeType & AdditionalFormSubFields & ComponentHintsInterface & FormAgreements

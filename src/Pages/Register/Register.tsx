@@ -7,35 +7,29 @@ import Lock from '../../public/svg/lock.svg';
 import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
+import { OnSubmitCallback } from '../../infrastructure/Form/store/redux/models/form.model';
+import { RegisterRequestBody } from './register.model';
 
 const Register = () => {
 
-	const dummyRequest = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		// console.log('FORM DATA');
-		// console.log(formData);
-		// console.log('------------------------');
-		// console.log('VALIDATION RESULT');
-		// console.log(formValidationResult);
-		// console.log('------------------------');
-		// console.log('IS VALID');
-		// console.log(isValid);
-		// console.log('------------------------');
-		// console.log('AGREEMENTS VALIDATION DATA');
-		// console.log(agreementsValidatedData);
+	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
+		if (!agreementsValidatedData || !isValid) return;
+
+		const mixedFormAndAgreements:RegisterRequestBody = { ...formData, agreementFields: agreementsValidatedData };
+		console.log(mixedFormAndAgreements)
+		await fetch('http://192.168.0.171:3000/register', {
+			method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			mode: 'no-cors', // no-cors, *cors, same-origin
+			headers: {
+				'Content-Type': 'application/json',
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			redirect: 'follow', // manual, *follow, error
+			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+			body: JSON.stringify(mixedFormAndAgreements), // body data type must match "Content-Type" header
+		});
 	};
 
-	// await fetch('http://localhost:3000/register', {
-	// 	method: 'POST', // *GET, POST, PUT, DELETE, etc.
-	// 	mode: 'cors', // no-cors, *cors, same-origin
-	// 	credentials: 'same-origin', // include, *same-origin, omit
-	// 	headers: {
-	// 		'Content-Type': 'application/json',
-	// 		// 'Content-Type': 'application/x-www-form-urlencoded',
-	// 	},
-	// 	redirect: 'follow', // manual, *follow, error
-	// 	referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-	// 	body: JSON.stringify(formData), // body data type must match "Content-Type" header
-	// });
 
 	return (
 		<TemplateContainer>
@@ -68,7 +62,7 @@ const Register = () => {
 						hints={
 							[
 								{
-									id: 'e-mail',
+									id: 'email',
 									message: 'Remember to enter the correct email address. This will make it easier for us to contact you',
 								},
 								{
@@ -88,7 +82,7 @@ const Register = () => {
 
 						fields={[
 							{
-								id:'e-mail',
+								id:'email',
 								iconRenderer: () => <Letter width={20} height={20} />,
 								patternError: 'Invalid e-mail address',
 								fieldSpecificProps: {
