@@ -8,11 +8,31 @@ import Google from '../../public/svg/Google.svg';
 import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
+import { OnSubmitCallback } from '../../infrastructure/Form/store/redux/models/form.model';
+import { RegisterRequestBody } from '../Register/register.model';
 
 const SignIn = () => {
 	const [ fontsLoaded ] = useFonts({
 		'font-bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
 	});
+
+	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
+		console.log(formData)
+		// if (!agreementsValidatedData || !isValid) return;
+		// console.log(agreementsValidatedData)
+		// console.log(mixedFormAndAgreements)
+		await fetch('http://192.168.0.244:3000/user/signin', {
+			method: 'POST', // *GET, POST, PUT, DELETE, etc.
+			mode: 'no-cors', // no-cors, *cors, same-origin
+			headers: {
+				'Content-Type': 'application/json',
+				// 'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			redirect: 'follow', // manual, *follow, error
+			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+			body: JSON.stringify(formData), // body data type must match "Content-Type" header
+		});
+	};
 
 	return fontsLoaded && (
 		<TemplateContainer>
@@ -35,7 +55,7 @@ const SignIn = () => {
 								id: 'rememberMe'
 							}]
 						}}
-						onSubmitCallback={(formData, formValidationResult, isValid) => isValid}
+						onSubmitCallback={dummyRequest}
 						submitButtonText='Log in'
 						sharedFieldProps={{
 							selectionColor: '#fff',
@@ -44,7 +64,7 @@ const SignIn = () => {
 
 						fields={[
 							{
-								id:'e-mail',
+								id:'email',
 								iconRenderer: () => <Letter width={20} height={20} />,
 								patternError: 'Invalid e-mail address',
 								fieldSpecificProps: {

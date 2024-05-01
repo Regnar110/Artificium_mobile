@@ -13,11 +13,11 @@ import { RegisterRequestBody } from './register.model';
 const Register = () => {
 
 	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		if (!agreementsValidatedData || !isValid) return;
-
-		const mixedFormAndAgreements:RegisterRequestBody = { ...formData, agreementFields: agreementsValidatedData };
-		console.log(mixedFormAndAgreements)
-		await fetch('http://192.168.0.171:3000/register', {
+		// if (!agreementsValidatedData || !isValid) return;
+		// console.log(agreementsValidatedData)
+		const mixedFormAndAgreements:RegisterRequestBody = { ...formData, agreementFields: agreementsValidatedData! };
+		// console.log(mixedFormAndAgreements)
+		await fetch('http://192.168.0.244:3000/user/register', {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'no-cors', // no-cors, *cors, same-origin
 			headers: {
