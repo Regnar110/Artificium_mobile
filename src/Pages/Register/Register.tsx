@@ -13,11 +13,10 @@ import { RegisterRequestBody } from './register.model';
 const Register = () => {
 
 	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		// if (!agreementsValidatedData || !isValid) return;
-		// console.log(agreementsValidatedData)
+		if (!isValid) return;
+
 		const mixedFormAndAgreements:RegisterRequestBody = { ...formData, agreementFields: agreementsValidatedData! };
-		// console.log(mixedFormAndAgreements)
-		await fetch('http://192.168.0.244:3000/user/register', {
+		const response = fetch('http://192.168.0.244:3000/user/register', {
 			method: 'POST', // *GET, POST, PUT, DELETE, etc.
 			mode: 'no-cors', // no-cors, *cors, same-origin
 			headers: {
@@ -27,7 +26,7 @@ const Register = () => {
 			redirect: 'follow', // manual, *follow, error
 			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
 			body: JSON.stringify(mixedFormAndAgreements), // body data type must match "Content-Type" header
-		});
+		}).then(data => console.log(data[0]));
 	};
 
 
