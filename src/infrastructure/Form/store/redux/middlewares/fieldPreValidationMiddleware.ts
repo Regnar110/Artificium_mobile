@@ -23,6 +23,7 @@ fieldPreValidationMiddleware.startListening({
 		const { fieldHintWarnings } = currentState as RootState;
 		const { type, payload } = action as MiddlewarePayloadActionType;
 		const isFielHintsEnabledForForm = fieldHintWarnings.some(formHints => formHints.formId === payload.targetFormId && formHints.enabled);
+		console.log(type)
 		return (
 			isFielHintsEnabledForForm
 			&&

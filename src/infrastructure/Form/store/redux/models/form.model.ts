@@ -8,7 +8,7 @@ import { AgreementRequirementValidation } from '../../../../Agreements/store/red
 
 type OptionalStyle = StyleProp<ViewStyle>
 
-export type OnSubmitCallback = (formData:InitFormTypePayload, validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementRequirementValidation) => void
+export type OnSubmitCallback = (formData:InitFormTypePayload, validationResult:Array<ValidationResult> ,isValid: boolean, agreementsValidationData?: AgreementRequirementValidation) => void | Promise<FormFieldErrorResponse>
 
 interface AdditionalFormSubFields<T = boolean> {
 	forgotPasswordRedirect?: T,
@@ -93,4 +93,10 @@ export interface FormHintsState {
 	enabled: boolean,
 	formId: string,
 	hints: Array<StateStoredHint>,
+}
+
+export interface FormFieldErrorResponse {
+	formId: string,
+	field: string,
+	clientMessage: string
 }

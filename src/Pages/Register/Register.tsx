@@ -8,25 +8,19 @@ import Letter from '../../public/svg/letter.svg';
 import { COLORS } from '../../infrastructure/enums';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
 import { OnSubmitCallback } from '../../infrastructure/Form/store/redux/models/form.model';
-import { RegisterRequestBody } from './register.model';
+import { RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors } from './register.model';
+import { genericFetch } from '../../infrastructure/utils/genericFetch/genericFetch';
+import { HttpStatus } from '../../infrastructure/publicModels/HTTPStatuses';
 
 const Register = () => {
 
 	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
 		if (!isValid) return;
-
-		const mixedFormAndAgreements:RegisterRequestBody = { ...formData, agreementFields: agreementsValidatedData! };
-		const response = fetch('http://192.168.0.244:3000/user/register', {
-			method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			mode: 'no-cors', // no-cors, *cors, same-origin
-			headers: {
-				'Content-Type': 'application/json',
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			redirect: 'follow', // manual, *follow, error
-			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-			body: JSON.stringify(mixedFormAndAgreements), // body data type must match "Content-Type" header
-		}).then(data => console.log(data[0]));
+		const mixedFormAndAgreements = { ...formData, agreementFields: agreementsValidatedData! };
+		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.171:3000/user/register', 'POST', mixedFormAndAgreements);
+		if (response.status === HttpStatus.CONFLICT) {
+			return response.payload.data;
+		}
 	};
 
 

@@ -1,10 +1,11 @@
-import { OnSubmitCallback, ValidationResult } from '../redux/models/form.model';
+import { FormFieldErrorResponse, OnSubmitCallback, ValidationResult } from '../redux/models/form.model';
 import { ValidationPatterns } from '../../validationPatterns';
 import { pushValidationErrorsToStore, resetValidationErrors } from '../redux/reducers/fieldsSubmitPatternsErrors';
 import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 import { pushAgreementsValidationErrors, resetAgreementsValidationErrors } from '../../../Agreements/store/redux/reducers/agreementsFieldsErrorsSlice';
+import { triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
 
 
 /**
@@ -35,7 +36,7 @@ class formRepository {
 	* 	valid: validation result <boolean>
 	* }
 	*/
-	static submitValidation(formId: string, callback?: OnSubmitCallback) {
+	static async submitValidation(formId: string, callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
 		const storedFieldsData = store.getState().fields;
 		const requirementValidatedFields = this.validateAgreementsFieldsRequirement(formId);
@@ -71,7 +72,11 @@ class formRepository {
 			const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
 			
 			
-			callback && callback(currentFormFields, validationResult, isValid, requirementValidatedFields);
+			if (callback) {
+				const returnedData = await callback(currentFormFields, validationResult, isValid, requirementValidatedFields) as FormFieldErrorResponse;
+				console.log(returnedData)
+				store.dispatch(triggerErrorOnField(returnedData));
+			}
 		}
 	}
 

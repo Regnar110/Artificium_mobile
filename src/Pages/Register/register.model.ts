@@ -10,3 +10,8 @@ export interface RegisterRequestBody {
     };
     formId: string;
 }
+export interface RegisterResponseDataTypeWithFieldErrors {
+    formId: string;
+    field?: string;
+    clientMessage?:string;
+}
