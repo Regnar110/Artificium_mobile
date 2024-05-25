@@ -5,7 +5,7 @@ import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 import { pushAgreementsValidationErrors, resetAgreementsValidationErrors } from '../../../Agreements/store/redux/reducers/agreementsFieldsErrorsSlice';
-import { triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
+import { clearAllErrorsOnFields, clearErrorOnField, triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
 
 
 /**
@@ -73,9 +73,13 @@ class formRepository {
 			
 			
 			if (callback) {
-				const returnedData = await callback(currentFormFields, validationResult, isValid, requirementValidatedFields) as FormFieldErrorResponse;
-				console.log(returnedData)
-				store.dispatch(triggerErrorOnField(returnedData));
+				const returnedData = await callback(currentFormFields, validationResult, isValid, requirementValidatedFields);
+				store.dispatch(triggerErrorOnField(returnedData as FormFieldErrorResponse));
+				if (returnedData === 'OK') {
+					agreementsStore.dispatch(resetAgreementsValidationErrors({ parentFormId: formId }));
+					store.dispatch(clearAllErrorsOnFields(formId));
+					console.log('ACCTION SUCCESS')
+				}
 			}
 		}
 	}

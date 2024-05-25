@@ -17,7 +17,6 @@ const SignIn = () => {
 	});
 
 	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		console.log(formData)
 		// if (!agreementsValidatedData || !isValid) return;
 		// console.log(agreementsValidatedData)
 		// console.log(mixedFormAndAgreements)

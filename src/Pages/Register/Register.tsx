@@ -17,10 +17,11 @@ const Register = () => {
 	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
 		if (!isValid) return;
 		const mixedFormAndAgreements = { ...formData, agreementFields: agreementsValidatedData! };
-		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.171:3000/user/register', 'POST', mixedFormAndAgreements);
+		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.244:3000/user/register', 'POST', mixedFormAndAgreements);
 		if (response.status === HttpStatus.CONFLICT) {
 			return response.payload.data;
-		}
+		} 
+		return 'OK';
 	};
 
 
