@@ -5,7 +5,7 @@ import { store } from '../redux/store';
 import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 import { pushAgreementsValidationErrors, resetAgreementsValidationErrors } from '../../../Agreements/store/redux/reducers/agreementsFieldsErrorsSlice';
-import { clearAllErrorsOnFields, clearErrorOnField, triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
+import { clearAllErrorsOnFields, triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
 
 
 /**
@@ -35,6 +35,8 @@ class formRepository {
 	* 	field: Validated field id <string>,
 	* 	valid: validation result <boolean>
 	* }
+	* @callback Returned values are injected to callback.
+	* @callback Returns 'OK' or field errors from backend.
 	*/
 	static async submitValidation(formId: string, callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
@@ -78,7 +80,6 @@ class formRepository {
 				if (returnedData === 'OK') {
 					agreementsStore.dispatch(resetAgreementsValidationErrors({ parentFormId: formId }));
 					store.dispatch(clearAllErrorsOnFields(formId));
-					console.log('ACCTION SUCCESS')
 				}
 			}
 		}

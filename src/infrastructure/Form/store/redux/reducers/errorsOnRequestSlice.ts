@@ -10,7 +10,7 @@ const errorsOnRequestSlice = createSlice({
 	reducers: {
 
 		triggerErrorOnField: (state, action: PayloadAction<FormFieldErrorResponse>) => {
-			const { formId, field, clientMessage } = action.payload
+			const { formId, field, clientMessage } = action.payload;
 			const formStateIndex = state.findIndex(form => form.formId === formId);
 			if (formStateIndex === -1) {
 				state.push({
@@ -55,4 +55,4 @@ export const getFieldAfterRequestError = (state:RootState, formId: string, field
 	if (!fieldError) return null;
 
 	return fieldError.clientMessage;
-}
+};

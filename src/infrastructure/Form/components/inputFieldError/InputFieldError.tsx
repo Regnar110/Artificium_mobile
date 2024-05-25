@@ -15,8 +15,8 @@ const InputFieldError = () => {
 	const predicateError = () => {
 		const selectedError = error ? patternError : afterRequestError;
 		
-		return selectedError && <Text style={styles.inputFieldSubmitError}>{selectedError}</Text>
-	}
+		return selectedError && <Text style={styles.inputFieldSubmitError}>{selectedError}</Text>;
+	};
 
 	return predicateError();
 };

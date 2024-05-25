@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { COLORS } from '../../infrastructure/enums';
@@ -9,7 +9,6 @@ import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
 import { OnSubmitCallback } from '../../infrastructure/Form/store/redux/models/form.model';
-import { RegisterRequestBody } from '../Register/register.model';
 
 const SignIn = () => {
 	const [ fontsLoaded ] = useFonts({
