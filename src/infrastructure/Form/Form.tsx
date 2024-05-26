@@ -20,6 +20,7 @@ const Form = ({
 	sharedFieldProps,
 	onSubmitCallback,
 	submitButtonText,
+	isLoading = false,
 	forgotPasswordRedirect = false, 
 	rememberMeCheckbox = false,
 }:FormType) => {
@@ -31,6 +32,7 @@ const Form = ({
 		fieldLiveHints,
 		onSubmitCallback,
 		submitButtonText,
+		isLoading,
 		hints,
 		fields,
 		formId

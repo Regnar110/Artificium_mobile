@@ -1,36 +1,23 @@
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { COLORS } from '../../infrastructure/enums';
-import Letter from '../../public/svg/letter.svg';
 import Logo from '../../public/svg/logo.svg';
 import Google from '../../public/svg/Google.svg';
 import Apple from '../../public/svg/Apple.svg';
 import Form from '../../infrastructure/Form/Form';
 import TemplateContainer from '../../infrastructure/TemplateContainer/TemplateContainer';
-import { OnSubmitCallback } from '../../infrastructure/Form/store/redux/models/form.model';
+import { SuspenseOnDemand } from '../../infrastructure/SuspenseOnDemand/SuspenseOnDemand';
+import { SiGNIN_FORM_CONSTANTS, SignInForm } from './form/config';
+import { useSignInFormSubmit } from './hooks/useSignInFormSubmit';
 
 const SignIn = () => {
 	const [ fontsLoaded ] = useFonts({
 		'font-bold': require('../../assets/fonts/PlusJakartaSans-Bold.ttf')
 	});
 
-	const dummyRequest:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		// if (!agreementsValidatedData || !isValid) return;
-		// console.log(agreementsValidatedData)
-		// console.log(mixedFormAndAgreements)
-		await fetch('http://192.168.0.244:3000/user/signin', {
-			method: 'POST', // *GET, POST, PUT, DELETE, etc.
-			mode: 'no-cors', // no-cors, *cors, same-origin
-			headers: {
-				'Content-Type': 'application/json',
-				// 'Content-Type': 'application/x-www-form-urlencoded',
-			},
-			redirect: 'follow', // manual, *follow, error
-			referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-			body: JSON.stringify(formData), // body data type must match "Content-Type" header
-		});
-	};
+	const { isWaiting, submitSignIn } = useSignInFormSubmit();
+
 
 	return fontsLoaded && (
 		<TemplateContainer>
@@ -44,46 +31,19 @@ const SignIn = () => {
 						</Text>
 						<Text style={styles.headerDescription}>Log in to Artificium to start creating magic</Text>     
 					</View>
-					<Form
-						formId={'signinForm'}
-						agreements={{
-							agreementFields: [{
-								required: false,
-								textNode: () => <Text style={{color: '#fff'}}>{'Remember me'}</Text>,
-								id: 'rememberMe'
-							}]
-						}}
-						onSubmitCallback={dummyRequest}
-						submitButtonText='Log in'
-						sharedFieldProps={{
-							selectionColor: '#fff',
-							placeholderTextColor:COLORS.NOBLE_300
-						}}
+					<SuspenseOnDemand fallback={<ActivityIndicator size={'large'} color={COLORS.DAY_BLUE_400}/>} isActive={isWaiting}>
+						<Form
+							formId={SiGNIN_FORM_CONSTANTS.FORM_ID}
+							agreements={SignInForm.agreements}
+							onSubmitCallback={submitSignIn}
+							submitButtonText={SiGNIN_FORM_CONSTANTS.SUBMIT_BUTTON_TEXT}
+							sharedFieldProps={SignInForm.sharedFieldProps}
+							fields={SignInForm.fields}
+							rememberMeCheckbox
+							forgotPasswordRedirect
+						/>						
+					</SuspenseOnDemand>
 
-						fields={[
-							{
-								id:'email',
-								iconRenderer: () => <Letter width={20} height={20} />,
-								patternError: 'Invalid e-mail address',
-								fieldSpecificProps: {
-									placeholder: 'E-mail',
-									inputMode: 'text',
-									maxLength: 320,
-								}
-							},
-							{
-								id:'password',
-								iconRenderer: () => <Letter width={20} height={20} />,
-								patternError: 'Invalid password',
-								fieldSpecificProps: {
-									secureTextEntry: true,
-									placeholder:'Password',
-								}
-							}
-						]}
-						rememberMeCheckbox
-						forgotPasswordRedirect
-					/>
 					<View style={styles.lineBreak}>
 						<View style={styles.line} />
 						<Text style={styles.breakLineText}>or continue with</Text>

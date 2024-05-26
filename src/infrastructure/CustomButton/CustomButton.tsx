@@ -8,7 +8,7 @@ interface CustomButtonType {
 }
 
 const CustomButton = ({ callback }:CustomButtonType) => {
-	const { submitButtonText } = useContext(FormContext);
+	const { submitButtonText,  } = useContext(FormContext);
 	return (
 		<View style={styles.customButtonContainer}>
 			<Pressable onPress={callback} style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>

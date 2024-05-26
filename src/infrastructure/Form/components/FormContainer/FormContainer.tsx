@@ -8,7 +8,6 @@ import { InitFormTypePayload } from '../../store/redux/models/actions.model';
 import { initFields } from '../../store/redux/reducers/fieldsSlice';
 import { useFocusEffect } from '@react-navigation/native';
 import { StateStoredHint } from '../../store/redux/models/form.model';
-
 interface FormContainerType {
 	children: ReactNode
 }

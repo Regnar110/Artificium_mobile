@@ -34,11 +34,12 @@ export type FormField = {
 }
 
 export interface FormContextType extends AdditionalFormSubFields, ComponentHintsInterface {
-	formId: string,
-	sharedFieldProps?: TextInputProps,
-	fields: FormField[],
-	submitButtonText: string
-	onSubmitCallback: OnSubmitCallback
+	formId: string;
+	sharedFieldProps?: TextInputProps;
+	fields: FormField[];
+	submitButtonText: string;
+	onSubmitCallback: OnSubmitCallback;
+	isLoading?: boolean;
 }
 
 export interface FormThemeType {
@@ -68,7 +69,7 @@ export type FormType =  FormContextType & FormThemeType & AdditionalFormSubField
  * @type HINTS
  */
 
-interface Hint {
+export interface Hint {
 	id: keyof typeof ValidationPatterns;
 	message: string;
 }
@@ -104,4 +105,16 @@ export interface FormFieldErrorResponse {
 	formId: string,
 	field: string,
 	clientMessage: string
+}
+
+/**
+ * @interface FormConfig
+ * @description interface for describing config file structure for form component
+ */
+
+export interface FormConfigInterface {
+	sharedFieldProps?: TextInputProps;
+	fields: FormField[];
+	hints?: Hint[];
+	agreements?: FormAgreementsType;
 }
