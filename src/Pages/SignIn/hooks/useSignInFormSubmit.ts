@@ -8,14 +8,13 @@ import { InitFormTypePayload } from '../../../infrastructure/Form/store/redux/mo
 export const useSignInFormSubmit = () => {
 	const [ isWaiting, setIsWaiting ] = useState<boolean>(false);
 
-	const submitSignIn:OnSubmitCallback = async (formData, formValidationResult, isValid) => {
+	const submitSignIn:OnSubmitCallback = async ({ formData, isValid, triggerFormErrors, clearErrors }) => {
 		if (!isValid) return;
-		console.log(formData)
 		const response = await genericFetch<InitFormTypePayload, unknown>('http://192.168.0.244:3000/user/signin', 'POST', formData);
 		if (response.status === HttpStatus.UNAUTHORIZED) {
-			console.log('UNAUTHORIZED');
+			triggerFormErrors(response);
 		} 
-		return 'OK';
+		clearErrors(formData.formId);
 	};
 
 	return { isWaiting, submitSignIn };

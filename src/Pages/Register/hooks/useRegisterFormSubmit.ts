@@ -11,7 +11,7 @@ export const useRegisterFormSubmit = () => {
 	const { navigate } = useNavigation();
 
 	const submitRegister:OnSubmitCallback = async (formData, formValidationResult, isValid, agreementsValidatedData) => {
-		if (!isValid) return;
+		if (!isValid) return null;
 		setIsWaiting(true);
 		const mixedFormAndAgreements = { ...formData, agreementFields: agreementsValidatedData! };
 		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.244:3000/user/register', 'POST', mixedFormAndAgreements);

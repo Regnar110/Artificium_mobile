@@ -8,7 +8,6 @@ const errorsOnRequestSlice = createSlice({
 	name: 'errorsOnRequest',
 	initialState,
 	reducers: {
-
 		triggerErrorOnField: (state, action: PayloadAction<FormFieldErrorResponse>) => {
 			const { formId, field, clientMessage } = action.payload;
 			const formStateIndex = state.findIndex(form => form.formId === formId);

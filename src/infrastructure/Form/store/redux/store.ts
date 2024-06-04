@@ -4,6 +4,7 @@ import { fieldPreValidationMiddleware } from './middlewares/fieldPreValidationMi
 import fieldsHintWarningsSlice from './reducers/fieldsHintWarningsSlice';
 import fieldsSubmitPatternsErrors from './reducers/fieldsSubmitPatternsErrors';
 import errorsOnRequestSlice from './reducers/errorsOnRequestSlice';
+import formErrorsSlice from './reducers/formErrorsSlice';
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
 		fieldHintWarnings: fieldsHintWarningsSlice,
 		fieldsSubmitPatternsErrors: fieldsSubmitPatternsErrors,
 		errorsOnRequestSlice: errorsOnRequestSlice,
+		formErrorsSlice: formErrorsSlice,
 	},
 	middleware: (getDefaultMiddleware) => {
 		return getDefaultMiddleware().prepend(fieldPreValidationMiddleware.middleware);

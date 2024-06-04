@@ -43,7 +43,6 @@ const SignIn = () => {
 							forgotPasswordRedirect
 						/>						
 					</SuspenseOnDemand>
-
 					<View style={styles.lineBreak}>
 						<View style={styles.line} />
 						<Text style={styles.breakLineText}>or continue with</Text>

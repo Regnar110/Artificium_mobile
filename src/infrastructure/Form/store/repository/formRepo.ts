@@ -6,6 +6,7 @@ import { agreementsStore } from '../../../Agreements/store/redux/store';
 import { AgreementRequirementValidation } from '../../../Agreements/store/redux/agreementsStore.model';
 import { pushAgreementsValidationErrors, resetAgreementsValidationErrors } from '../../../Agreements/store/redux/reducers/agreementsFieldsErrorsSlice';
 import { clearAllErrorsOnFields, triggerErrorOnField } from '../redux/reducers/errorsOnRequestSlice';
+import { StoreMethodsRepository } from './storeRepo';
 
 
 /**
@@ -41,11 +42,11 @@ class formRepository {
 	static async submitValidation(formId: string, callback?: OnSubmitCallback) {
 		const validationResult:Array<ValidationResult> = [];
 		const storedFieldsData = store.getState().fields;
-		const requirementValidatedFields = this.validateAgreementsFieldsRequirement(formId);
+		const agreementsValidationData = this.validateAgreementsFieldsRequirement(formId);
 		const fieldsArray = Object.values(storedFieldsData);
-		const currentFormFields = fieldsArray.find(form => form.formId === formId);
-		if (currentFormFields) {
-			const { fields } = currentFormFields;
+		const formData = fieldsArray.find(form => form.formId === formId);
+		if (formData) {
+			const { fields } = formData;
 			for( const field in fields) {
 				const { id, value } = fields[field] as { id: keyof typeof ValidationPatterns, value: string };
 				const fieldValidationResult = ValidationPatterns[id].test(value);
@@ -65,18 +66,30 @@ class formRepository {
 				store.dispatch(resetValidationErrors(formId));
 			}
 
-			const inValidAgreements = requirementValidatedFields.filter(field => !field.valid);
+			const inValidAgreements = agreementsValidationData.filter(field => !field.valid);
 			if (inValidAgreements.length) {
 				agreementsStore.dispatch(pushAgreementsValidationErrors({parentFormId: formId, inValidAgreements}));
 			} else {
 				agreementsStore.dispatch(resetAgreementsValidationErrors({ parentFormId: formId }));
 			}
-			const isValid = invalidFields.length === 0 && !requirementValidatedFields.some(field => !field.valid);
+			const isValid = invalidFields.length === 0 && !agreementsValidationData.some(field => !field.valid);
 			
 			
 			if (callback) {
-				const returnedData = await callback(currentFormFields, validationResult, isValid, requirementValidatedFields);
-				store.dispatch(triggerErrorOnField(returnedData as FormFieldErrorResponse));
+				const returnedData = await callback({
+					formData,
+					validationResult,
+					isValid,
+					agreementsValidationData,
+					triggerErrorOnField: StoreMethodsRepository.triggerErrorOnField,
+					clearErrors: StoreMethodsRepository.clearErrors,
+					triggerFormErrors: StoreMethodsRepository.triggerFormErrors
+				});
+
+				if (returnedData !== 'OK' && typeof returnedData === 'object') {
+					store.dispatch(triggerErrorOnField(returnedData as FormFieldErrorResponse));
+				}
+				
 				if (returnedData === 'OK') {
 					agreementsStore.dispatch(resetAgreementsValidationErrors({ parentFormId: formId }));
 					store.dispatch(clearAllErrorsOnFields(formId));
