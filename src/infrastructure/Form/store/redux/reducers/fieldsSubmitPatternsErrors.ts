@@ -15,6 +15,7 @@ const fieldsSubmitPatternsErrors = createSlice({
 		resetValidationErrors: (state, action: PayloadAction<string>) => {
 			const formId = action.payload;
 			state = state.filter(formValidation => formValidation.formId !== formId);
+			return state;
 		}
 	},
 });

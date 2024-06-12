@@ -31,7 +31,7 @@ fieldPreValidationMiddleware.startListening({
 			Object.keys(ValidationPatterns).includes(payload.fieldPayload.id)
 		);
 	},
-	effect: (action, listenerAPI)=> {
+	effect: (action, listenerAPI) => {
 		const { payload } = action as MiddlewarePayloadActionType;
 		const { fieldPayload, targetFormId } = payload;
 		const validationRegExp = ValidationPatterns[fieldPayload.id];

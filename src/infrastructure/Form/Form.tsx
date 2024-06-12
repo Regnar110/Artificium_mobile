@@ -8,6 +8,7 @@ import { store } from './store/redux/store';
 import FormContainer from './components/FormContainer/FormContainer';
 import formRepository from './store/repository/formRepo';
 import Agreements from '../Agreements/Agreements';
+import FormError from './components/FormError/FormError';
 
 
 const Form = ({
@@ -50,6 +51,7 @@ const Form = ({
 				<Provider store={store}>
 					<FormContainer>
 						<InputsContainer />
+						<FormError />
 						{
 							agreements && <Agreements
 								parentFormId={formId}

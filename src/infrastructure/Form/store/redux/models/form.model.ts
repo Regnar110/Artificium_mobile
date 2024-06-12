@@ -44,7 +44,7 @@ export type FormField = {
 	id: keyof typeof ValidationPatterns,
 	fieldSpecificProps?: TextInputProps,
 	iconRenderer?: () => ReactNode,
-	patternError: string
+	patternError?: string
 }
 
 export interface FormContextType extends AdditionalFormSubFields, ComponentHintsInterface {
@@ -108,6 +108,11 @@ export interface FormHintsState {
 	enabled: boolean,
 	formId: string,
 	hints: Array<StateStoredHint>,
+}
+
+export interface FormErrorState {
+	formId: string;
+	clientMessage: string;
 }
 
 export interface FormFieldErrorsOnRequestState {

@@ -7,8 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 import AddPerson from '../../public/svg/addperson.svg';
 import Unlock from '../../public/svg/unlock.svg';
+import { useCheckSessionOnNavigator } from '../../infrastructure/hooks/useCheckSessionOnNavigator/useCheckSessionOnNavigator';
 
 const HubPage = () => {
+	useCheckSessionOnNavigator();
 	const Tab = createMaterialBottomTabNavigator();
 	const navigation = useNavigation();
 

@@ -18,3 +18,8 @@ export type InitFormTypePayload = {
 	}
 	formId: string
 }
+
+export interface FormErrorPushPayload {
+	formId: string,
+	clientMessage: string
+}

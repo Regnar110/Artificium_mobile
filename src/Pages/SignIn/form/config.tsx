@@ -30,7 +30,6 @@ export const SignInForm: FormConfigInterface = {
 		{
 			id:'password',
 			iconRenderer: () => <Letter width={20} height={20} />,
-			patternError: 'Invalid password',
 			fieldSpecificProps: {
 				secureTextEntry: true,
 				placeholder:'Password',

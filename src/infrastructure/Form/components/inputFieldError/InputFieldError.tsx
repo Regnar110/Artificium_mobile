@@ -13,7 +13,7 @@ const InputFieldError = () => {
 	const error = useSelector((state:RootState) => getFieldErrors(state, formId, id));
 	const afterRequestError = useSelector((state: RootState) => getFieldAfterRequestError(state, formId, id));
 	const predicateError = () => {
-		const selectedError = error ? patternError : afterRequestError;
+		const selectedError = error ? patternError && patternError : afterRequestError;
 		
 		return selectedError && <Text style={styles.inputFieldSubmitError}>{selectedError}</Text>;
 	};

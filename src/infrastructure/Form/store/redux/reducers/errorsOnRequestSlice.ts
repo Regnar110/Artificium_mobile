@@ -35,7 +35,7 @@ const errorsOnRequestSlice = createSlice({
 		clearAllErrorsOnFields: (state, action: PayloadAction<string>) => {
 			const formIndex = state.findIndex(form => form.formId === action.payload);
 			delete state[formIndex];
-
+			return state;
 		}
 	},
 });
