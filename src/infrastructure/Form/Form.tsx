@@ -31,7 +31,6 @@ const Form = ({
 		rememberMeCheckbox,
 		sharedFieldProps,
 		onSubmitCallback,
-		submitButtonText,
 		fieldLiveHints,
 		isLoading,
 		hints,
@@ -59,7 +58,7 @@ const Form = ({
 								agreementFields={agreements.agreementFields}
 							/>
 						}
-						<CustomButton callback={submit}/>	
+						<CustomButton text={submitButtonText} callback={submit}/>	
 					</FormContainer>
 				</Provider>
 			</FormThemeProvider>

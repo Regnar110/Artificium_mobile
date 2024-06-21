@@ -51,7 +51,6 @@ export interface FormContextType extends AdditionalFormSubFields, ComponentHints
 	formId: string;
 	sharedFieldProps?: TextInputProps;
 	fields: FormField[];
-	submitButtonText: string;
 	onSubmitCallback: OnSubmitCallback;
 	isLoading?: boolean;
 }

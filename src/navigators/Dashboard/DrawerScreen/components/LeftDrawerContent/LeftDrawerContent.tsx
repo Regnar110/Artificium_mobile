@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const RightDrawerContent = (props) => {
+const LeftDrawerContent = (props) => {
 	return (
 		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<Text>This is the right drawer</Text>
+			<Text>This is the left drawer</Text>
 		</View>
 	);
 };
 
-export default RightDrawerContent;
+export default LeftDrawerContent;

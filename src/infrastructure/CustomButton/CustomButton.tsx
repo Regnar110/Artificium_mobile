@@ -1,18 +1,35 @@
-import React, { useContext } from 'react';
+import React, { ReactNode } from 'react';
 import { View, Pressable, Text } from 'react-native';
 import { styles } from './styles';
-import { FormContext } from '../Form/store/context/FormContexts';
 
 interface CustomButtonType {
+	text?: string,
 	callback: () => void;
+	SvgIcon?: ReactNode
+	optionalStyles?: {
+		customButtonContainer?: unknown;
+		customButton?: unknown;
+		customButtonPressed?: unknown;
+	}
 }
 
-const CustomButton = ({ callback }:CustomButtonType) => {
-	const { submitButtonText,  } = useContext(FormContext);
+const CustomButton = ({ text, callback, SvgIcon, optionalStyles }:CustomButtonType) => {
 	return (
-		<View style={styles.customButtonContainer}>
-			<Pressable onPress={callback} style={({pressed})=> pressed ? [styles.customButton, styles.customButtonPressed] : [styles.customButton]}>
-				<Text style={styles.customButtonText}>{ submitButtonText }</Text>
+		<View style={[
+			styles.customButtonContainer,
+			optionalStyles?.customButtonContainer || null
+		]}>
+			<Pressable
+				onPress={callback}
+				style={({pressed})=> pressed ?
+					[
+						styles.customButton,
+						styles.customButtonPressed,
+						optionalStyles?.customButton || null,
+						optionalStyles?.customButtonPressed || null
+					] : [styles.customButton, optionalStyles?.customButton || null,]}>
+				{text &&<Text style={styles.customButtonText}>{ text }</Text>}
+				{SvgIcon && SvgIcon}
 			</Pressable>
 		</View>
 	);
