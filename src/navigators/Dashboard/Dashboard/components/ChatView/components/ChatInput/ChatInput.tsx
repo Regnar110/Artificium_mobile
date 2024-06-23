@@ -2,9 +2,9 @@ import React from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { styles, customButtonOptionalStyles } from './styles';
 import { View } from 'react-native';
-import Pointer from '../../../../../public/svg/pointer.svg';
-import CustomButton from '../../../../../infrastructure/CustomButton/CustomButton';
-import { COLORS } from '../../../../../infrastructure/enums';
+import CustomButton from '../../../../../../../infrastructure/CustomButton/CustomButton';
+import { COLORS } from '../../../../../../../infrastructure/enums';
+import Pointer from '../../../../../../../public/svg/pointer.svg';
 
 const ChatInput = () => {
 	return (

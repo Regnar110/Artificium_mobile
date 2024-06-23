@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../../../../infrastructure/enums';
+import { COLORS } from '../../../../../../../infrastructure/enums';
 
 export const styles = StyleSheet.create({
 	container: {
@@ -11,16 +11,11 @@ export const styles = StyleSheet.create({
 	},
 
 	chatInput: {
+		flex: 1,
 		paddingHorizontal: 16,
-		width: '80%',
 		height: 45,
 		color: COLORS.NOBLE_100
-	},
-
-	button: {
-
 	}
-	
 });
 
 export const customButtonOptionalStyles = StyleSheet.create({
@@ -35,4 +30,4 @@ export const customButtonOptionalStyles = StyleSheet.create({
 		backgroundColor: COLORS.NOBLE_500,
 		width: 'auto'
 	}
-})
+});
