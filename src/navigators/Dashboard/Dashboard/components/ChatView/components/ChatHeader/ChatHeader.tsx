@@ -1,25 +1,27 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { COLORS } from '../../../../../../../infrastructure/enums';
 import UserAvatar from '../../../../../../../infrastructure/UserAvatar/UserAvatar';
+import { styles } from './styles';
+import { RestUsersCount } from './components/RestUsersCount/RestUsersCount';
 
 const ChatHeader = () => {
 	return (
-		<View style={{ backgroundColor: COLORS.NOBLE_800, borderRadius: 12, padding: 12, gap: 20 }}>
+		<View style={styles.container}>
 			<View>
-				<Text style={{ fontSize: 18, color: COLORS.NOBLE_100, fontWeight: 'bold'}}>
+				<Text style={styles.header}>
 					{'Orbital Oddysey'}
 				</Text>
-				<Text style={{ fontSize: 12, color: COLORS.NOBLE_300}}>
+				<Text style={styles.headerDescription}>
 					{'Marketing Campaign for a new TV series Launssssssssssssssssssch'}
 				</Text>
 			</View>
-			<View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-				<UserAvatar displayName={false}/>
-				<UserAvatar displayName={false}/>
-				<UserAvatar displayName={false}/>
-				<UserAvatar displayName={false}/>
-				<UserAvatar displayName={false}/>
+			<View style={styles.usersAvatars}>
+				<UserAvatar />
+				<UserAvatar />
+				<UserAvatar />
+				<UserAvatar />
+				<UserAvatar />
+				<RestUsersCount />
 			</View>
 		</View>
 	);

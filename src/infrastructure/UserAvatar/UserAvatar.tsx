@@ -1,16 +1,16 @@
 import React from 'react';
 import { ImageBackground, Text, View } from 'react-native';
-import { COLORS } from '../enums';
+import { styles } from './styles';
 
-const UserAvatar = ({ displayName = true}: { displayName?: boolean}) => {
+const UserAvatar = ({ displayName, size = 'normal' }: { displayName?: string, size?: 'normal' | 'large' }) => {
 	return (
-		<View style={{flexDirection: 'row', alignItems: 'center', gap: 8}}>
-			<View style={{width: 30, height: 30}}>
-				<ImageBackground style={{width: '100%', height: '100%', position: 'relative'}} source={require('../../public/png/avatars/woman.png')}>
-					<View style={{ position:'absolute', top: 0, right: -5, width: 15, height: 15, backgroundColor: COLORS.ELECTRIC_GREEN_600, borderRadius: 100, borderWidth: 3, borderColor: COLORS.NOBLE_700}} />
+		<View style={styles.avatarContainer}>
+			<View style={[size === 'normal' ? styles.avatarNormalIMGContainer : styles.avatarLargeIMGContainer ]}>
+				<ImageBackground style={styles.imageBg} source={require('../../public/png/avatars/woman.png')}>
+					<View style={styles.avatarStatusDot} />
 				</ImageBackground>
 			</View>
-			{displayName && <Text style={{ fontSize: 16, color: COLORS.HEISENBERG_500, fontWeight: 'medium'}}>{'Isabella Chen'}</Text> }			
+			{displayName && <Text style={styles.avatarName}>{displayName}</Text> }			
 		</View>
 	)
 };

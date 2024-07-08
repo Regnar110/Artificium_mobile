@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-
-const LeftDrawerContent = (props) => {
+import { View } from 'react-native';
+import { styles } from './styles';
+import { UserPanelHeader } from '../../../LeftDrawer/userPanel/UserPanelHeader/UserPanelHeader';
+import { UserPanelFriendList } from '../../../LeftDrawer/userPanel/UserPanelHeader/UserPanelFriendList/UserPanelFriendList';
+ 
+const LeftDrawerContent = () => {
 	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<Text>This is the left drawer</Text>
+		<View style={styles.leftDrawerContentContainer}>
+			<UserPanelHeader />
+			<UserPanelFriendList />
 		</View>
 	);
 };

@@ -1,12 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { COLORS } from '../../../../../../../infrastructure/enums';
 import ChatMessage from './components/ChatMessage';
-
+import { styles } from './styles';
 const ChatWindow = () => {
 	return (
-		<ScrollView style={{ flex:1, flexDirection:'column', marginBottom: 16 }}>
+		<ScrollView style={styles.container}>
 			<ChatMessage />
 			<ChatMessage />
 			<ChatMessage />

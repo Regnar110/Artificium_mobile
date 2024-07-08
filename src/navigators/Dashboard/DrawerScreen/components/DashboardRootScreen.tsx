@@ -1,11 +1,9 @@
 import React from 'react';
-import { Button, View } from 'react-native';
-import { useTypedNavigation } from '../../../../infrastructure/hooks/useTypedNavigation';
+import { View } from 'react-native';
 import ChatView from '../../Dashboard/components/ChatView/ChatView';
 import { COLORS } from '../../../../infrastructure/enums';
 
 const DashboardRootScreen = () => {
-	const { getParent } = useTypedNavigation();
 	return (
 		<View style={{ backgroundColor: COLORS.NOBLE_600 ,flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 			{/* <Button
