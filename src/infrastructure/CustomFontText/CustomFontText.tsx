@@ -7,12 +7,11 @@ import { JAKARTA_FONTS } from '../utils/fontsEnum';
 interface CustomFontTextInterface {
 	children: ReactNode,
 	fontName?: keyof typeof JAKARTA_FONTS,
-	style:  StyleProp<TextStyle>
+	style?:  StyleProp<TextStyle>
 }
 export const CustomFontText = ({ children, fontName = 'PlusJakartaSans-Medium', style }: CustomFontTextInterface) => {
-	useFonts(JAKARTA_FONTS);
-
-	return (
+	const [ loaded ] = useFonts(JAKARTA_FONTS);
+	return loaded && (
 		<Text style={[style, { fontFamily: fontName }]}>
 			{ children }
 		</Text>

@@ -1,22 +1,41 @@
 import React from 'react';
-import { ImageBackground, View } from 'react-native';
+import {
+	ImageBackground,
+	Pressable,
+	StyleProp,
+	TextStyle,
+	View,
+	ViewStyle
+} from 'react-native';
 import { styles } from './styles';
 import { CustomFontText } from '../CustomFontText/CustomFontText';
 
-const UserAvatar = ({ displayName, displayNameColor = 'HEISENBERG_500', size = 'normal' }: { displayName?: string, displayNameColor?:'NOBLE_100' | 'HEISENBERG_500', size?: 'normal' | 'large' }) => {
+interface UserAvatarInterface {
+	displayName?: string,
+	optionalStyles?: {
+		avatarContainer?: StyleProp<ViewStyle>,
+		avatarIMGContainer?: StyleProp<ViewStyle>,
+		imageBackground?: StyleProp<ViewStyle>,
+		avatarStatusDot?: StyleProp<ViewStyle>,
+		avatarName?: StyleProp<TextStyle>,
+	},
+	callback?: () => void
+}
+
+const UserAvatar = ({ displayName, optionalStyles, callback }: UserAvatarInterface) => {
 	return (
-		<View style={styles.avatarContainer}>
-			<View style={[size === 'normal' ? styles.avatarNormalIMGContainer : styles.avatarLargeIMGContainer ]}>
-				<ImageBackground style={styles.imageBg} source={require('../../public/png/avatars/woman.png')}>
-					<View style={styles.avatarStatusDot} />
+		<Pressable onPress={callback} style={[styles.avatarContainer, optionalStyles?.avatarContainer]}>
+			<View style={[styles.avatarIMGContainer, optionalStyles?.avatarIMGContainer]}>
+				<ImageBackground style={[styles.imageBg, optionalStyles?.imageBackground]} source={require('../../public/png/avatars/woman.png')}>
+					<View style={[styles.avatarStatusDot , optionalStyles?.avatarStatusDot]} />
 				</ImageBackground>
 			</View>
 			{	displayName &&
-				<CustomFontText style={[displayNameColor === 'HEISENBERG_500' ? styles.avatarName : styles.whiteAvatarName]}>
+				<CustomFontText style={[styles.avatarName, optionalStyles?.avatarName]}>
 					{displayName}
 				</CustomFontText> 
 			}			
-		</View>
+		</Pressable>
 	);
 };
 

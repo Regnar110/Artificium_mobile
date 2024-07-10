@@ -8,14 +8,9 @@ export const styles = StyleSheet.create({
 		gap: 8
 	},
 	
-	avatarNormalIMGContainer: {
+	avatarIMGContainer: {
 		width: 30,
 		height: 30
-	},
-
-	avatarLargeIMGContainer: {
-		width: 45,
-		height: 45
 	},
 
 	imageBg: {
@@ -39,12 +34,6 @@ export const styles = StyleSheet.create({
 	avatarName: {
 		fontSize: 16,
 		color: COLORS.HEISENBERG_500,
-		fontWeight: 'medium'
-	},
-
-	whiteAvatarName: {
-		fontSize: 16,
-		color: COLORS.NOBLE_100,
 		fontWeight: 'medium'
 	}
 });

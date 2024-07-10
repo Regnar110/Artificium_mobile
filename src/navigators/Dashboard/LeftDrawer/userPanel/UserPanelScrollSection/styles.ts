@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { COLORS } from '../../../../../../infrastructure/enums';
+import { COLORS } from '../../../../../infrastructure/enums';
 
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		flexDirection: 'column',
 		gap: 8,
+		maxHeight: '50%'
 	},
 
 	sectionHeader: {
@@ -15,9 +16,8 @@ export const styles = StyleSheet.create({
 		marginBottom: 2
 	},
 
-	friendListScrollContainer: {
-		maxHeight: '30%',
+	scrollContainer: {
+		flexDirection: 'column',
 		marginBottom: 8,
-		rowGap: 24
 	}
 });
