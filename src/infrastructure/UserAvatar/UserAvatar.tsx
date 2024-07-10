@@ -1,8 +1,9 @@
 import React from 'react';
-import { ImageBackground, Text, View } from 'react-native';
+import { ImageBackground, View } from 'react-native';
 import { styles } from './styles';
+import { CustomFontText } from '../CustomFontText/CustomFontText';
 
-const UserAvatar = ({ displayName, size = 'normal' }: { displayName?: string, size?: 'normal' | 'large' }) => {
+const UserAvatar = ({ displayName, displayNameColor = 'HEISENBERG_500', size = 'normal' }: { displayName?: string, displayNameColor?:'NOBLE_100' | 'HEISENBERG_500', size?: 'normal' | 'large' }) => {
 	return (
 		<View style={styles.avatarContainer}>
 			<View style={[size === 'normal' ? styles.avatarNormalIMGContainer : styles.avatarLargeIMGContainer ]}>
@@ -10,9 +11,13 @@ const UserAvatar = ({ displayName, size = 'normal' }: { displayName?: string, si
 					<View style={styles.avatarStatusDot} />
 				</ImageBackground>
 			</View>
-			{displayName && <Text style={styles.avatarName}>{displayName}</Text> }			
+			{	displayName &&
+				<CustomFontText style={[displayNameColor === 'HEISENBERG_500' ? styles.avatarName : styles.whiteAvatarName]}>
+					{displayName}
+				</CustomFontText> 
+			}			
 		</View>
-	)
+	);
 };
 
 export default UserAvatar;

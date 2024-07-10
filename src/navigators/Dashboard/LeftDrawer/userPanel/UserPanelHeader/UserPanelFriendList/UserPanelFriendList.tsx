@@ -10,21 +10,15 @@ export const UserPanelFriendList = () => {
 		<View style={styles.container}>
 			<Text style={styles.sectionHeader}>{'FRIEND LIST'}</Text>
 			<ScrollView style={styles.friendListScrollContainer}>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
-				<UserAvatar displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
+				<UserAvatar displayNameColor='NOBLE_100' displayName='Lara Croft'/>
 			</ScrollView>			
 		</View>
 

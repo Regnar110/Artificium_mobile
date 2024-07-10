@@ -40,5 +40,11 @@ export const styles = StyleSheet.create({
 		fontSize: 16,
 		color: COLORS.HEISENBERG_500,
 		fontWeight: 'medium'
+	},
+
+	whiteAvatarName: {
+		fontSize: 16,
+		color: COLORS.NOBLE_100,
+		fontWeight: 'medium'
 	}
 });
