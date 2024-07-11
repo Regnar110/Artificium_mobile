@@ -11,11 +11,17 @@ import { useTypedNavigation } from '../useTypedNavigation';
  */
 export const useCheckSessionOnNavigator = () => {
 	const { navigate } = useTypedNavigation();
+
+	const validateSessionToken = async () => {
+		const sessionToken = await SecureStoreWorker.get('artificium_session');
+		if (!sessionToken) {
+			navigate('hubpage');
+			return;
+		}
+		navigate('dashboard');
+	};
 	
 	useLayoutEffect(() => {
-		const sessionToken = SecureStoreWorker.get('artificium_session');
-		if (!sessionToken) return;
-
-		navigate('dashboard');
+		validateSessionToken();
 	});
 };

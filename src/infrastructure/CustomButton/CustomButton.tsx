@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { styles } from './styles';
+import { CustomFontText } from '../CustomFontText/CustomFontText';
 
 interface CustomButtonType {
 	text?: string,
@@ -10,6 +11,7 @@ interface CustomButtonType {
 		customButtonContainer?: unknown;
 		customButton?: unknown;
 		customButtonPressed?: unknown;
+		customButtonText?: unknown;
 	}
 }
 
@@ -28,7 +30,7 @@ const CustomButton = ({ text, callback, SvgIcon, optionalStyles }:CustomButtonTy
 						optionalStyles?.customButton || null,
 						optionalStyles?.customButtonPressed || null
 					] : [styles.customButton, optionalStyles?.customButton || null,]}>
-				{text &&<Text style={styles.customButtonText}>{ text }</Text>}
+				{text &&<CustomFontText style={[styles.customButtonText, optionalStyles?.customButtonText || null]}>{ text }</CustomFontText>}
 				{SvgIcon && SvgIcon}
 			</Pressable>
 		</View>

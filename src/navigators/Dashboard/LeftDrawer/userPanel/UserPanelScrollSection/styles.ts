@@ -4,9 +4,7 @@ import { COLORS } from '../../../../../infrastructure/enums';
 export const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column',
 		gap: 8,
-		maxHeight: '50%'
 	},
 
 	sectionHeader: {
@@ -17,6 +15,7 @@ export const styles = StyleSheet.create({
 	},
 
 	scrollContainer: {
+		flex: 1,
 		flexDirection: 'column',
 		marginBottom: 8,
 	}

@@ -4,11 +4,10 @@ import { COLORS } from '../enums';
 export const styles = StyleSheet.create({
 	container: {
 		flexDirection: 'row',
-		gap: 12
+		gap: 8
 	},
 
-	text: {
-		fontSize: 14,
-		color: COLORS.NOBLE_400,
+	title: {
+		color: COLORS.NOBLE_100
 	}
 });

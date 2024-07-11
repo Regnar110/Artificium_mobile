@@ -5,6 +5,10 @@ export class SecureStoreWorker {
 		await SecureStore.setItemAsync(key, value);
 	}
 
+	static async remove(key: string) {
+		await SecureStore.deleteItemAsync(key);
+	}
+
 	static async get(key: string) {
 		const getResult = await SecureStore.getItemAsync(key);
 		if (!getResult) return null;
