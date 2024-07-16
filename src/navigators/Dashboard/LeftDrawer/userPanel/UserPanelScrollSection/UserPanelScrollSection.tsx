@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { View, ScrollView } from 'react-native';
-import { CustomFontText } from '../../../../../infrastructure/CustomFontText/CustomFontText';
 import { styles } from './styles';
+import { SectionHeader } from '../SectionHeader/SectionHeader';
 
 interface UserPanelScrollSectionInterface {
 	children: ReactNode;
@@ -10,7 +10,7 @@ interface UserPanelScrollSectionInterface {
 export const UserPanelScrollSection = ({ children, header }: UserPanelScrollSectionInterface) => {
 	return (
 		<View style={styles.container}>
-			<CustomFontText fontName='PlusJakartaSans-SemiBold' style={styles.sectionHeader}>{header}</CustomFontText>
+			<SectionHeader>{header}</SectionHeader>
 			<ScrollView style={styles.scrollContainer}>
 				{ children }
 			</ScrollView>

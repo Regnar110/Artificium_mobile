@@ -2,20 +2,22 @@ import React, { ReactNode } from 'react';
 import { View, Pressable } from 'react-native';
 import { styles } from './styles';
 import { CustomFontText } from '../CustomFontText/CustomFontText';
+import { JAKARTA_FONTS } from '../utils/fontsEnum';
 
 interface CustomButtonType {
 	text?: string,
 	callback: () => void;
-	SvgIcon?: ReactNode
+	SvgIcon?: ReactNode;
 	optionalStyles?: {
 		customButtonContainer?: unknown;
 		customButton?: unknown;
 		customButtonPressed?: unknown;
 		customButtonText?: unknown;
-	}
+	};
+	fontName?: keyof typeof JAKARTA_FONTS;
 }
 
-const CustomButton = ({ text, callback, SvgIcon, optionalStyles }:CustomButtonType) => {
+const CustomButton = ({ text, callback, SvgIcon, optionalStyles, fontName }:CustomButtonType) => {
 	return (
 		<View style={[
 			styles.customButtonContainer,
@@ -30,7 +32,7 @@ const CustomButton = ({ text, callback, SvgIcon, optionalStyles }:CustomButtonTy
 						optionalStyles?.customButton || null,
 						optionalStyles?.customButtonPressed || null
 					] : [styles.customButton, optionalStyles?.customButton || null,]}>
-				{text &&<CustomFontText style={[styles.customButtonText, optionalStyles?.customButtonText || null]}>{ text }</CustomFontText>}
+				{text &&<CustomFontText fontName={fontName} style={[styles.customButtonText, optionalStyles?.customButtonText || null]}>{ text }</CustomFontText>}
 				{SvgIcon && SvgIcon}
 			</Pressable>
 		</View>
