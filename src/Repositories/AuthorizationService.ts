@@ -7,6 +7,11 @@ export class AuthorizationService {
 		return !!userSessionKey;
 	}
 
+	static async getUserTokenIfExist() {
+		const userSessionKey = await SecureStoreWorker.get('artificium_session');
+		return userSessionKey || null;
+	}
+
 	static async removeUserSessionKeyFromSecureStore() {
 		await SecureStoreWorker.remove('artificium_session');
 	}

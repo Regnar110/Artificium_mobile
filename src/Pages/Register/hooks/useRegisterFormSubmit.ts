@@ -11,7 +11,7 @@ export const useRegisterFormSubmit = () => {
 	const { navigate } = useTypedNavigation();
 
 	const submitRegister:OnSubmitCallback = async ({formData, isValid, agreementsValidationData, triggerErrorOnField, clearErrors }) => {
-
+		console.log(formData)
 		if (!isValid) return null;
 		setIsWaiting(true);
 		const mixedFormAndAgreements = { ...formData, agreementFields: agreementsValidationData };
