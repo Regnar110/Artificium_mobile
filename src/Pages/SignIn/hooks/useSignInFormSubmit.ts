@@ -14,7 +14,6 @@ export const useSignInFormSubmit = () => {
 	const submitSignIn:OnSubmitCallback = async ({ formData, isValid, triggerFormErrors, clearErrors }) => {
 		if (!isValid) return;
 		setIsWaiting(true);
-		console.log(formData)
 		const response = await genericFetch<SignInRequestBody, SignInRequestResponseData>('http://192.168.0.171:3000/user/signin', 'POST', formData);
 		if (response.status === HttpStatus.UNAUTHORIZED) {
 			triggerFormErrors(response.payload.data);

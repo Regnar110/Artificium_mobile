@@ -9,11 +9,20 @@ import LogOut from '../../../../../public/svg/logout.svg';
 import { fromUserPanelFooterStyles } from './fromUserPanelFooterStyles';
 import { AuthorizationService } from '../../../../../Repositories/AuthorizationService';
 import { useTypedNavigation } from '../../../../../infrastructure/hooks/useTypedNavigation';
+import { genericFetch } from '../../../../../infrastructure/utils/genericFetch/genericFetch';
+import { RedirectRoutes } from '../../../../../infrastructure/publicModels/navigatorTypes';
+import { HttpStatus } from '../../../../../infrastructure/publicModels/HTTPStatuses';
 export const UserPanelFooter = () => {
 	const { navigate } = useTypedNavigation();
 	const logoutCallback = async () => {
-		await AuthorizationService.removeUserSessionKeyFromSecureStore();
-		navigate('hubpage');
+		const response = await genericFetch<never, { data: null, redirect: RedirectRoutes }>('http://192.168.0.171:3000/user/logout', 'GET');
+		
+		if (response.status === HttpStatus.OK) {
+			await AuthorizationService.removeUserSessionKeyFromSecureStore();
+			navigate(response.payload.redirect);
+		} else {
+			// Modal or some UI for errors ???
+		}
 	};
 
 	return (
