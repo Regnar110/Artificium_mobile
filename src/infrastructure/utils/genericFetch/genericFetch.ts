@@ -5,7 +5,6 @@ type FetchMethods = 'GET' | 'POST' | 'DELETE' | 'PUT';
 
 export const genericFetch = async <BodyT, ResponseT>(url: string, method:FetchMethods, body?: BodyT ): Promise<ResponseDataModel<ResponseT>> => {
 	const token = await AuthorizationService.getUserTokenIfExist();
-	console.log(token)
 	const promise = await fetch(url, {
 		method, // *GET, POST, PUT, DELETE, etc.
 		mode: 'no-cors',

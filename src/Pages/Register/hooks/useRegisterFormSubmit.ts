@@ -11,12 +11,12 @@ export const useRegisterFormSubmit = () => {
 	const { navigate } = useTypedNavigation();
 
 	const submitRegister:OnSubmitCallback = async ({formData, isValid, agreementsValidationData, triggerErrorOnField, clearErrors }) => {
-		console.log(formData)
 		if (!isValid) return null;
-		setIsWaiting(true);
+		// setIsWaiting(true);
 		const mixedFormAndAgreements = { ...formData, agreementFields: agreementsValidationData };
-		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.244:3000/user/register', 'POST', mixedFormAndAgreements);
+		const response = await genericFetch<RegisterRequestBody, RegisterResponseDataTypeWithFieldErrors>('http://192.168.0.171:3000/authentication/register', 'POST', mixedFormAndAgreements);
 		setIsWaiting(false);
+		console.log(response)
 		if (response.status === HttpStatus.CONFLICT && response.payload.data) {
 			const { field, clientMessage, formId } = response.payload.data;
 			
