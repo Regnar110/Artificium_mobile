@@ -8,23 +8,25 @@ import MicrophoneGray from '../../../../../public/svg/microphonegray.svg';
 import LogOut from '../../../../../public/svg/logout.svg';
 import { fromUserPanelFooterStyles } from './fromUserPanelFooterStyles';
 import { useTypedNavigation } from '../../../../../infrastructure/hooks/useTypedNavigation';
-import { getSocketIO } from '../../../../../store/dashboard/slices/socketIOSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../../../store/dashboard/store';
 import { AuthorizationService } from '../../../../../Repositories/AuthorizationService';
+import { HttpStatus } from '../../../../../infrastructure/publicModels/HTTPStatuses';
+import { RedirectRoutes } from '../../../../../infrastructure/publicModels/navigatorTypes';
+import { genericFetch } from '../../../../../infrastructure/utils/genericFetch/genericFetch';
+import { SocketClient } from '../../../../../socket';
+
 export const UserPanelFooter = () => {
 	// const socket = useSocket();
 	const { navigate } = useTypedNavigation();
 	const logoutCallback = async () => {
-		// const response = await genericFetch<never, { data: null, redirect: RedirectRoutes }>('http://192.168.0.171:3000/authentication/logout', 'GET');
-		
-		// if (response.status === HttpStatus.OK) {
-		// 	socket.disconnect();
-		// 	await AuthorizationService.removeUserSessionKeyFromSecureStore();
-		// 	navigate(response.payload.redirect);
-		// } else {
-		// 	// Modal or some UI for errors ???
-		// }
+		const response = await genericFetch<never, { data: null, redirect: RedirectRoutes }>('http://192.168.0.171:3000/authentication/logout', 'GET');
+
+		if (response.status === HttpStatus.OK) {
+			SocketClient.closeAllConnections();
+			await AuthorizationService.removeUserSessionKeyFromSecureStore();
+			navigate(response.payload.redirect);
+		} else {
+			// Modal or some UI for errors ???
+		}
 	};
 
 	return (

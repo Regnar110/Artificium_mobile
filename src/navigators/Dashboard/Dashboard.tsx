@@ -2,19 +2,20 @@ import React, { useEffect } from 'react';
 import RightDrawerScreen from './DrawerScreen/components/RightDrawerScreen/RightDrawerScreen';
 import { useTypedNavigation } from '../../infrastructure/hooks/useTypedNavigation';
 import { AuthorizationService } from '../../Repositories/AuthorizationService';
-import { useDispatch } from 'react-redux';
-import { connectionInit } from '../../store/dashboard/slices/socketIOSlice';
+import { SocketClient } from '../../socket';
 
 const DashboardPage = () => {
 	const { navigate } = useTypedNavigation();
-	const dispatch = useDispatch();
-
 	const initSocketConnection = async () => {
 		const token = await AuthorizationService.getUserTokenIfExist();
-		dispatch(connectionInit(token));
+		if (token) {
+			console.log('INS')
+			SocketClient.openConnections(['friendList', 'chat'], token);
+		}
 	};
 
 	useEffect(() => {
+		console.log('INIT')
 		initSocketConnection();
 	}, []);
 
